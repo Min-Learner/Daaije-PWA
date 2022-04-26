@@ -1,0 +1,72 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 10px;
+    background-color: #f45b69;
+    height: 100vh;
+    color: white;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.fields {
+    text-align: center;
+    padding: 10px 5px;
+    font-size: large;
+    flex: 1;
+}
+
+.secondWrapper {
+    display: flex;
+    width: 100%;
+}
+
+.listCell {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.listCell:nth-child(odd), .dataWrapper:nth-child(3) .dataCell:nth-child(odd), .dataWrapper:nth-child(2) .dataCell:nth-child(even), .dataWrapper:nth-child(4) .dataCell:nth-child(even) {
+    background-color: rgba(255, 255, 255, .2);
+}
+
+.dataWrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dataCell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+}
+
+.buttons {
+    font-size: 25px;
+}
+
+.data {
+    font-size: 25px;
+    padding: 0 10px;
+}
+
+.confirm {
+    background-color: bisque;
+    font-size: 20px;
+    padding: 10px 15px;
+    color: rgb(109, 91, 91);
+    margin: 20px 0;
+}

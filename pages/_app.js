@@ -6,6 +6,7 @@ import Layout from '../components/Layout'
 import 'animate.css'
 
 let socket = null
+let wakeLock = null
 export const animateContext = createContext()
 
 function MyApp({ Component, pageProps }) {
@@ -39,16 +40,21 @@ function MyApp({ Component, pageProps }) {
   let [count, setCount] = useState(0)
   const router = useRouter()
 
-  useEffect(() => {
+  useEffect(async () => {
 
     if(!socket) socket = io('https://daaije-server.herokuapp.com')
+
+    if(!wakeLock) {
+      try {
+        wakeLock = await navigator.wakeLock.request('screen')
+      } catch (err) {return}
+    }
 
     if (!list.length) {
 
       fetch('https://daaije-server.herokuapp.com/get_whole_list')
       .then((res) => res.json())
       .then((data) => setList(data.list))
-      .catch((err) => ('Error occurred', err))
 
     }
 
@@ -57,7 +63,6 @@ function MyApp({ Component, pageProps }) {
       fetch('https://daaije-server.herokuapp.com/get_list')
       .then((res) => res.json())
       .then((data) => setPlayList(data.data))
-      .catch((err) => ('Error occurred', err))
 
     }
 

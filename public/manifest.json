@@ -1,8 +1,8 @@
 {
-  "name": "Daaje PWA",
+  "name": "大爷显灵",
   "short_name": "DPWA",
   "theme_color": "#ffffff",
-  "background_color": "#004740",
+  "background_color": "#faa307",
   "display": "fullscreen",
   "orientation": "portrait",
   "scope": "/",

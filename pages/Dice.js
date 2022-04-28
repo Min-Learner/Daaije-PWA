@@ -1,19 +1,22 @@
 import { useRouter } from 'next/router'
 
-export default function Dice({diceRecord, isBasic}) {
+export default function Dice({diceData, isBasic}) {
 
     const router = useRouter()
+
+    let arr = Array(11).fill(0)
+    diceData.forEach(d => arr[d - 2]++)
 
     return (
         <div className="table-wrapper">
             <div className='chart-wrapper'>
-                {diceRecord.map((data, index) => {
+                {arr.map((data, index) => {
                     return (
 
-                        <div key={Math.random()} className='row-wrapper'>
+                        <div key={index} className='row-wrapper'>
                             <span className='chart-number'>{index + 2}</span>
                             <span className='chart-data'
-                                style={{width: data / Math.max(...diceRecord) * 280 + 'px'}}
+                                style={{width: data / Math.max(...arr) * 280 + 'px'}}
                             >
                                 {data ? data : null}
                             </span>

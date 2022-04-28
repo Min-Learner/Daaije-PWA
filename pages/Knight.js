@@ -6,14 +6,14 @@ import { useRouter } from 'next/router'
 import EventDice from '../components/EventDice'
 import Dices from '../components/Dices'
 
-export default function Knight({pirate, cardHint}) {
+export default function Knight({pirate, cardHint, bgc}) {
     
     let x = (pirate % 7 * 39 + 21) + 'px'
     let y = ((pirate % 7) % 2) ? '40%' : '0'
     const router = useRouter()
 
     return (
-        <div className="container">
+        <div className="container" style={{backgroundColor: bgc}}>
             <div className='progress'>
                 <div style={{transform: `translate(${x}, ${y})`, zIndex: 999}}>
                     <Pirate />

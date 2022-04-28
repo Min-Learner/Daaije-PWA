@@ -5,7 +5,7 @@ import SecondHalf from "../components/SecondHalf"
 import Image from 'next/image'
 import Total from "../components/Total"
 
-export default function Main() {
+export default function Main({bgc}) {
 
     let el = useRef()
     let quotes = [
@@ -40,7 +40,7 @@ export default function Main() {
     }, []);
 
     return (
-        <div className="container">
+        <div className="container" style={{backgroundColor: bgc}}>
             <div style={{display: 'flex', alignItems: 'center'}}>
                 <span className="bottom-line" ref={el}></span>
                 <div style={{display: 'flex'}}>

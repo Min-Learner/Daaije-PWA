@@ -24,7 +24,7 @@ export default function Player({diceData, isBasic, startIndex, playerList}) {
                     {
                         diceData.map((data, index) => {
                             return (
-                                <tr key={index * 7}>
+                                <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td>{playerList[(index + startIndex) % playerList.length]}</td>
                                     <td className="times">{data}</td>

@@ -5,14 +5,13 @@ import { useRouter } from 'next/router'
 import Layout from '../components/Layout'
 import 'animate.css'
 
-let socket = null
-let wakeLock = null
+let socket
+let wakeLock
 export const animateContext = createContext()
 
 function MyApp({ Component, pageProps }) {
 
   let players = ['仲', '高', '宇', '敏', '霞', '炜'];
-  let deDire = Array(11).fill(0);
   let deSec = Array(6).fill(false)
   let [playerSlect, setPlayerSlect] = useState(players);
   let [playerList, setPlayerList] = useState([]);
@@ -20,7 +19,6 @@ function MyApp({ Component, pageProps }) {
   let [dieTwo, setDieTwo] = useState(3);
   let [dieThree, setDiceThree] = useState(0);
   let [round, setRound] = useState(0);
-  let [diceRecord, setDiceRecord] = useState(deDire); 
   let [index, setIndex] = useState();
   let [currentPlayer, setCurrentPlayer] = useState();
   let [animation, setAnimation] = useState(false);
@@ -38,17 +36,15 @@ function MyApp({ Component, pageProps }) {
   let [darr, setDarr] = useState([0, 10])
   let [audio, setAudio] = useState('')
   let [count, setCount] = useState(0)
+  let [bgc, setBgc] = useState()
   const router = useRouter()
 
   useEffect(async () => {
 
-    if(!socket) socket = io('https://daaije-server.herokuapp.com')
+    if(!socket) socket = io('https://daaije-server.herokuapp.com/')
 
-    if(!wakeLock) {
-      try {
-        wakeLock = await navigator.wakeLock.request('screen')
-      } catch (err) {return}
-    }
+    try {wakeLock = await navigator.wakeLock.request('screen')}
+    catch (err) {return}
 
     if (!list.length) {
 
@@ -72,7 +68,6 @@ function MyApp({ Component, pageProps }) {
       setDieTwo(data.ndt)
       setRound(data.nrd)
       setIndex(data.nix)
-      setDiceRecord(data.ndr)
       setDiceData(data.ndd)
       setAnimation(true)
       setCurrentPlayer(data.ncp)
@@ -99,11 +94,24 @@ function MyApp({ Component, pageProps }) {
       setStartIndex(initData.nsi)
       setPlayerSlect(initData.nps)
       setRound(0)
-      setDiceRecord(Array(11).fill(0))
       setDiceData([])
       setDarr(initData.nda)
 
       initKnight(initData.npl.length)
+
+    })
+
+    socket.on('voice-msg', msg => {
+
+      if (msg.indexOf('各種') > -1) {
+        let res = new Audio("/music/daaije.m4a")
+        res.play()
+      } else if (msg.indexOf('背景') > -1) {
+        let a = Math.floor(Math.random() * 256)
+        let b = Math.floor(Math.random() * 256)
+        let c = Math.floor(Math.random() * 256)
+        setBgc(`rgb(${a}, ${b}, ${c})`)
+      } else setBgc(msg.toLowerCase())
 
     })
 
@@ -112,11 +120,8 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
 
     if (audio) {
-      let line
+      let line = new Audio(`https://daaije-server.herokuapp.com/uploads/${audio}`)
       let daaije = Math.random() > 0.5 ? "/music/yyds.m4a" : "/music/daaije.m4a" 
-      if(audio) {
-        line = new Audio(`https://daaije-server.herokuapp.com/uploads/${audio}`)
-      }
       let sound = new Audio(daaije)
 
       setTimeout(() => {
@@ -137,7 +142,6 @@ function MyApp({ Component, pageProps }) {
       ndt: dieTwo,
       nrd: round,
       nix: index,
-      ndr: diceRecord,
       ndd: diceData,
       ncp: currentPlayer,
       nau: audio,
@@ -203,7 +207,6 @@ function MyApp({ Component, pageProps }) {
       }
   
       setRound(0);
-      setDiceRecord(deDire);
       setIndex(playerList.indexOf(currentPlayer));
       setDiceData([]);
       setSelected(deSec);
@@ -214,13 +217,11 @@ function MyApp({ Component, pageProps }) {
 
   let roll = (re) => {
 
-    let clone = diceRecord
     let dataClone = diceData
     let ra = Math.floor(Math.random()*6)
     let rb = Math.floor(Math.random()*6)
 
     if (re) {
-      clone[dieOne + dieTwo]--;
       dataClone.pop();
     } else {
       setRound(pre => pre + 1);
@@ -228,14 +229,12 @@ function MyApp({ Component, pageProps }) {
       setCurrentPlayer(playerList[(index + 1) % playerList.length]);
     }
 
-    clone[ra + rb]++;
     dataClone.push(ra + rb + 2);
-    setDiceRecord(clone);
     setDiceData(dataClone);
     setDieOne(ra);
     setDieTwo(rb);
     setAnimation(true);
-    setAudio(playList[Math.floor(Math.random()*playList.length)])
+    setAudio(playList[Math.floor(Math.random() * playList.length)])
     setCount(pre => pre + 1)
     
     if (!isBasic) {
@@ -325,7 +324,7 @@ function MyApp({ Component, pageProps }) {
           setPlayList={setPlayList}
           startIndex={startIndex}
           diceData={diceData}
-          diceRecord={diceRecord}
+          bgc={bgc}
           {...pageProps} 
         />
       </Layout>

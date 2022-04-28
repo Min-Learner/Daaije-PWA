@@ -66,7 +66,7 @@ function MyApp({ Component, pageProps }) {
 
     }
 
-    socket?.on('get', data => {
+    socket.on('get', data => {
 
       setDieOne(data.ndo)
       setDieTwo(data.ndt)
@@ -85,13 +85,13 @@ function MyApp({ Component, pageProps }) {
 
     })
 
-    socket?.on('progress-info', data => {
+    socket.on('progress-info', data => {
       if (data.dice === 3) setTrade(data.clone)
       else if (data.dice === 4) setPolitic(data.clone)
       else if (data.dice === 5) setScience(data.clone)
     })
    
-    socket?.on('init', initData => {
+    socket.on('init', initData => {
 
       setCurrentPlayer(initData.ncp)
       setIndex(initData.npl.indexOf(initData.ncp))
@@ -107,7 +107,7 @@ function MyApp({ Component, pageProps }) {
 
     })
 
-  }, [socket])
+  }, [])
 
   useEffect(() => {
 

@@ -5,36 +5,31 @@ import { useRouter } from 'next/router'
 import Layout from '../components/Layout'
 import 'animate.css'
 
-let socket
-let wakeLock
+let socket, wakeLock
 export const animateContext = createContext()
 
 function MyApp({ Component, pageProps }) {
 
-  let players = ['仲', '高', '宇', '敏', '霞', '炜'];
-  let deSec = Array(6).fill(false)
-  let [playerSlect, setPlayerSlect] = useState(players);
-  let [playerList, setPlayerList] = useState([]);
-  let [dieOne, setDieOne] = useState(2);
-  let [dieTwo, setDieTwo] = useState(3);
-  let [dieThree, setDiceThree] = useState(0);
-  let [round, setRound] = useState(0);
-  let [index, setIndex] = useState();
-  let [currentPlayer, setCurrentPlayer] = useState();
-  let [animation, setAnimation] = useState(false);
-  let [diceData, setDiceData] = useState([]);
-  let [selected, setSelected] = useState(deSec);
-  let [isBasic, setIsBasic] = useState(true);
-  let [pirate, setPirate] = useState(0);
-  let [trade, setTrade] = useState([]);
-  let [politic, setPolitic] = useState([]);
-  let [science, setScience] = useState([]);
-  let [cardHint, setCardHint] = useState('');
-  let [startIndex, setStartIndex] = useState();
+  let players = ['仲', '高', '宇', '敏', '霞', '炜']
+  let [playerSlect, setPlayerSlect] = useState(players)
+  let [playerList, setPlayerList] = useState([])
+  let [dieOne, setDieOne] = useState(2)
+  let [dieTwo, setDieTwo] = useState(3)
+  let [dieThree, setDiceThree] = useState(0)
+  let [round, setRound] = useState(0)
+  let [currentPlayer, setCurrentPlayer] = useState()
+  let [animation, setAnimation] = useState(false)
+  let [diceData, setDiceData] = useState([])
+  let [isBasic, setIsBasic] = useState(true)
+  let [pirate, setPirate] = useState(0)
+  let [trade, setTrade] = useState([])
+  let [politic, setPolitic] = useState([])
+  let [science, setScience] = useState([])
+  let [cardHint, setCardHint] = useState('')
+  let [startIndex, setStartIndex] = useState()
   let [list, setList] = useState([])
   let [playList, setPlayList] = useState([])
   let [darr, setDarr] = useState([0, 10])
-  let [audio, setAudio] = useState('')
   let [count, setCount] = useState(0)
   let [bgc, setBgc] = useState()
   const router = useRouter()
@@ -67,11 +62,13 @@ function MyApp({ Component, pageProps }) {
       setDieOne(data.ndo)
       setDieTwo(data.ndt)
       setRound(data.nrd)
-      setIndex(data.nix)
       setDiceData(data.ndd)
       setAnimation(true)
       setCurrentPlayer(data.ncp)
-      setAudio(data.nau)
+      if (!playerList.length) {
+        setPlayerList(data.playerList)
+        setStartIndex(data.startIndex)
+      }
       if (data.nch) {
         setPirate(data.npa)
         setDiceThree(data.ned)
@@ -89,7 +86,6 @@ function MyApp({ Component, pageProps }) {
     socket.on('init', initData => {
 
       setCurrentPlayer(initData.ncp)
-      setIndex(initData.npl.indexOf(initData.ncp))
       setPlayerList(initData.npl)
       setStartIndex(initData.nsi)
       setPlayerSlect(initData.nps)
@@ -107,9 +103,9 @@ function MyApp({ Component, pageProps }) {
         let res = new Audio("/music/daaije.m4a")
         res.play()
       } else if (msg.indexOf('背景') > -1) {
-        let a = Math.floor(Math.random() * 256)
-        let b = Math.floor(Math.random() * 256)
-        let c = Math.floor(Math.random() * 256)
+        let a = creatRandomNumber(256)
+        let b = creatRandomNumber(256)
+        let c = creatRandomNumber(256)
         setBgc(`rgb(${a}, ${b}, ${c})`)
       } else setBgc(msg.toLowerCase())
 
@@ -119,21 +115,11 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
 
-    if (audio) {
-      let line = new Audio(`https://daaije-server.herokuapp.com/uploads/${audio}`)
-      let daaije = Math.random() > 0.5 ? "/music/yyds.m4a" : "/music/daaije.m4a" 
-      let sound = new Audio(daaije)
+    setTimeout(() => {
+      setAnimation(false)
+    }, 1500)
 
-      setTimeout(() => {
-          setAnimation(false)
-          setAudio('')
-      }, 1500);
-
-      if (darr.indexOf(dieOne + dieTwo) > -1) sound.play();
-      else line && line.play();
-    }
-
-  }, [audio])
+  }, [animation])
 
   useEffect(() => {
 
@@ -141,10 +127,10 @@ function MyApp({ Component, pageProps }) {
       ndo: dieOne,
       ndt: dieTwo,
       nrd: round,
-      nix: index,
       ndd: diceData,
       ncp: currentPlayer,
-      nau: audio,
+      playerList,
+      startIndex
     }
 
     if (!isBasic) data = {...data, ned: dieThree, npa: pirate, nch: cardHint}
@@ -154,62 +140,53 @@ function MyApp({ Component, pageProps }) {
 
   let playerSelectHandler = (e) => {
 
-    let array = [];
-    let clone = playerList;
+    let array = []
+    let clone = playerList
 
-    clone.push(e);
+    clone.push(e)
 
     for (let i = 0; i < playerSlect.length; i++) {
       if (playerSlect[i] !== e) {
-        array.push(playerSlect[i]);
+        array.push(playerSlect[i])
       }
     }
 
-    setPlayerSlect(array);
-    setPlayerList(clone);
-  }
-
-  let playerListHandler = (v, i) => {
-
-    setCurrentPlayer(v);
-    setStartIndex(playerList.indexOf(v));
-    let clone = Array(playerList.length).fill(false);
-    clone[i] = !clone[i];
-    setSelected(clone);
-
+    setPlayerSlect(array)
+    setPlayerList(clone)
   }
 
   let reset = () => {
 
-    setPlayerList([]);
-    setPlayerSlect(players);
-    setCurrentPlayer();
-    setSelected(deSec)
+    setPlayerList([])
+    setPlayerSlect(players)
 
   }
 
   let set = () => {
 
-    let data = {
-      ncp: currentPlayer,
-      npl: playerList,
-      nsi: startIndex,
-      nps: playerSlect,
-      nda: darr
-    }
+    let randomStartNumber = creatRandomNumber(playerList.length)
+    let randomStartPlayer = playerList[randomStartNumber]
 
-    if (playerList.length && currentPlayer) {
+    if (playerList.length) {
       if (isBasic) {
-        router.push('/Main');
+        router.push('/Main')
       } else {
-        router.push('/Knight');
+        router.push('/Knight')
         initKnight(playerList.length)
       }
   
-      setRound(0);
-      setIndex(playerList.indexOf(currentPlayer));
-      setDiceData([]);
-      setSelected(deSec);
+      setRound(0)
+      setStartIndex(randomStartNumber)
+      setCurrentPlayer(randomStartPlayer)
+      setDiceData([])
+
+      let data = {
+        ncp: randomStartPlayer,
+        npl: playerList,
+        nsi: randomStartNumber,
+        nps: playerSlect,
+        nda: darr
+      }
       socket.emit('start', data)
     }
 
@@ -218,52 +195,51 @@ function MyApp({ Component, pageProps }) {
   let roll = (re) => {
 
     let dataClone = diceData
-    let ra = Math.floor(Math.random()*6)
-    let rb = Math.floor(Math.random()*6)
+    let ra = creatRandomNumber(6)
+    let rb = creatRandomNumber(6)
 
     if (re) {
-      dataClone.pop();
+      dataClone.pop()
     } else {
-      setRound(pre => pre + 1);
-      setIndex(pre => pre + 1);
-      setCurrentPlayer(playerList[(index + 1) % playerList.length]);
+      setRound(pre => pre + 1)
+      setCurrentPlayer(playerList[(round + startIndex + 1) % playerList.length])
     }
 
-    dataClone.push(ra + rb + 2);
-    setDiceData(dataClone);
-    setDieOne(ra);
-    setDieTwo(rb);
-    setAnimation(true);
-    setAudio(playList[Math.floor(Math.random() * playList.length)])
+    dataClone.push(ra + rb + 2)
+    playAudio(ra, rb)
+    setDiceData(dataClone)
+    setDieOne(ra)
+    setDieTwo(rb)
+    setAnimation(true)
     setCount(pre => pre + 1)
     
     if (!isBasic) {
-      let rc = Math.floor(Math.random()*6)
+      let rc = creatRandomNumber(6)
 
       if (dieThree < 3 && re) {
-        pirate ? setPirate(pre => pre - 1) : setPirate(5);
+        pirate ? setPirate(pre => pre - 1) : setPirate(5)
       }
 
       handdleDiceThree(rc, ra)
-      setDiceThree(rc);
+      setDiceThree(rc)
     }
 
   }
 
   let cardHandle = (field, which, dice) => {
 
-    let copy = [...field];
-    let list = [];
-    let words = "攞" + which + "卡";
+    let copy = [...field]
+    let list = []
+    let words = "攞" + which + "卡"
 
     for (let i = 0; i < copy.length; i++) {
-      if (copy[i] !== 0 && copy[i] >= dice) list.push(playerList[i]);
+      if (copy[i] !== 0 && copy[i] >= dice) list.push(playerList[i])
     }
 
-    if (!list.length) setCardHint('无人可以攞卡！');
+    if (!list.length) setCardHint('无人可以攞卡！')
     else {
-      words = list.join('、') + words;
-      setCardHint(words);
+      words = list.join('、') + words
+      setCardHint(words)
     }
 
   }
@@ -281,7 +257,7 @@ function MyApp({ Component, pageProps }) {
         cardHandle(science, "科技", ra)
         break
       default:
-        setPirate(pre => pre + 1);
+        setPirate(pre => pre + 1)
         setCardHint('无卡攞！')
         break
     }
@@ -289,11 +265,27 @@ function MyApp({ Component, pageProps }) {
   }
 
   let initKnight = length => {
-    let defaultArray = Array(length).fill(0);
-    setPirate(0);
-    setTrade(defaultArray);
-    setPolitic(defaultArray);
-    setScience(defaultArray);
+    let defaultArray = Array(length).fill(0)
+    setPirate(0)
+    setTrade(defaultArray)
+    setPolitic(defaultArray)
+    setScience(defaultArray)
+  }
+
+  let creatRandomNumber = n => Math.floor(Math.random() * n)
+
+  let playAudio = (a, b) => {
+
+    let audio = playList[creatRandomNumber(playList.length)]
+    if (audio) {
+      let line = new Audio(`https://daaije-server.herokuapp.com/uploads/${audio}`)
+      let daaije = Math.random() > 0.5 ? "/music/yyds.m4a" : "/music/daaije.m4a" 
+      let sound = new Audio(daaije)
+
+      if (darr.indexOf(a + b) > -1) sound.play()
+      else line.play()
+    }
+
   }
 
   return (
@@ -305,11 +297,9 @@ function MyApp({ Component, pageProps }) {
           setDarr={setDarr}
           playerSlect={playerSlect} 
           playerList={playerList} 
-          playerListHandler={playerListHandler} 
           playerSelectHandler={playerSelectHandler} 
           set={set} 
           reset={reset} 
-          selected={selected} 
           isBasic={isBasic} 
           setIsBasic={setIsBasic}
           pirate={pirate} 

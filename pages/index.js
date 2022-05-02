@@ -3,7 +3,7 @@ import Text from '../components/Text'
 import { useRouter } from 'next/router'
 import Line from '../components/Line'
 
-export default function Home({darr, setDarr, playerSlect, playerList, playerListHandler, playerSelectHandler, set, reset, selected, isBasic, setIsBasic}) {
+export default function Home({darr, setDarr, playerSlect, playerList, playerSelectHandler, set, reset, isBasic, setIsBasic}) {
 
   const router = useRouter()
 
@@ -64,15 +64,11 @@ export default function Home({darr, setDarr, playerSlect, playerList, playerList
                     );
                 })}
             </div>
-            <p className={styles.text + ' animate__animated animate__bounceInRight'}>选择开始玩家</p>
+            <p className={styles.text + ' animate__animated animate__bounceInRight'}>系统将随机选择开始玩家</p>
             <div className={styles.playerSlectWrapper}>
-                {playerList.map((player, index) => {
+                {playerList.map((player) => {
                     return (
-                        <p key={player} onClick={() => {playerListHandler(player, index)}}
-                            className={selected[index] ? 
-                            `${styles.player} ${styles.transform}` : 
-                            `${styles.player} ${styles.opacity}`}
-                        >
+                        <p key={player} className={styles.player}>
                             {player}
                         </p>
                     )

@@ -38,8 +38,7 @@ function MyApp({ Component, pageProps }) {
 
     if(!socket) socket = io('https://daaije-server.herokuapp.com/')
 
-    try {wakeLock = await navigator.wakeLock.request('screen')}
-    catch (err) {return}
+    document.addEventListener('visibilitychange', handleVisibilityChange)
 
     if (!list.length) {
 
@@ -68,6 +67,7 @@ function MyApp({ Component, pageProps }) {
       if (!playerList.length) {
         setPlayerList(data.playerList)
         setStartIndex(data.startIndex)
+        setPlayerSlect(data.playerSlect)
       }
       if (data.nch) {
         setPirate(data.npa)
@@ -130,7 +130,8 @@ function MyApp({ Component, pageProps }) {
       ndd: diceData,
       ncp: currentPlayer,
       playerList,
-      startIndex
+      startIndex,
+      playerSlect
     }
 
     if (!isBasic) data = {...data, ned: dieThree, npa: pirate, nch: cardHint}
@@ -287,6 +288,24 @@ function MyApp({ Component, pageProps }) {
     }
 
   }
+
+  const acquireLock = async () => {
+    try {
+      wakeLock = await navigator.wakeLock.request('screen')
+    } catch (err) {
+      console.log(`${err.name}, ${err.message}`)
+    }
+  }
+
+  const releaseLock = () => {
+    if (wakeLock) {
+      wakeLock.release().then(() => wakeLock = null)
+    }
+  }
+
+  const handleVisibilityChange = () => (
+    document.visibilityState === 'hidden' ? releaseLock() : acquireLock()
+  )
 
   return (
 

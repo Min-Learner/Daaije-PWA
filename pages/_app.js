@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import { useState, useEffect, createContext } from 'react'
+import { useState, useEffect, createContext, useRef } from 'react'
 import io from 'socket.io-client'
 import { useRouter } from 'next/router'
 import Layout from '../components/Layout'
@@ -33,11 +33,13 @@ function MyApp({ Component, pageProps }) {
   let [count, setCount] = useState(0)
   let [bgc, setBgc] = useState()
   const router = useRouter()
+  const countRef = useRef()
 
-  useEffect(async () => {
+  useEffect(() => {
 
     if(!socket) socket = io('https://daaije-server.herokuapp.com/')
 
+    acquireLock()
     document.addEventListener('visibilitychange', handleVisibilityChange)
 
     if (!list.length) {
@@ -56,23 +58,29 @@ function MyApp({ Component, pageProps }) {
 
     }
 
+    countRef.current = 0
+
     socket.on('get', data => {
 
-      setDieOne(data.ndo)
-      setDieTwo(data.ndt)
-      setRound(data.nrd)
-      setDiceData(data.ndd)
-      setAnimation(true)
-      setCurrentPlayer(data.ncp)
-      if (!playerList.length) {
-        setPlayerList(data.playerList)
-        setStartIndex(data.startIndex)
-        setPlayerSlect(data.playerSlect)
-      }
-      if (data.nch) {
-        setPirate(data.npa)
-        setDiceThree(data.ned)
-        setCardHint(data.nch)
+      if (data.count > countRef.current) {
+        setDieOne(data.dieOne)
+        setDieTwo(data.dieTwo)
+        setRound(data.round)
+        setDiceData(data.diceData)
+        setAnimation(true)
+        setCurrentPlayer(data.currentPlayer)
+        setCount(data.count)
+        countRef.current = data.count
+        if (!playerList.length) {
+          setPlayerList(data.playerList)
+          setStartIndex(data.startIndex)
+          setPlayerSlect(data.playerSlect)
+        }
+        if (data.cardHint) {
+          setPirate(data.pirate)
+          setDiceThree(data.dieThree)
+          setCardHint(data.cardHint)
+        }
       }
 
     })
@@ -92,6 +100,8 @@ function MyApp({ Component, pageProps }) {
       setRound(0)
       setDiceData([])
       setDarr(initData.nda)
+      setCount(0)
+      countRef.current = 0
 
       initKnight(initData.npl.length)
 
@@ -124,17 +134,18 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
 
     let data = {
-      ndo: dieOne,
-      ndt: dieTwo,
-      nrd: round,
-      ndd: diceData,
-      ncp: currentPlayer,
+      dieOne,
+      dieTwo,
+      round,
+      diceData,
+      currentPlayer,
       playerList,
       startIndex,
-      playerSlect
+      playerSlect,
+      count
     }
 
-    if (!isBasic) data = {...data, ned: dieThree, npa: pirate, nch: cardHint}
+    if (!isBasic) data = {...data, dieThree, pirate, cardHint}
     count && socket.emit('send', data)
 
   }, [count])
@@ -147,9 +158,7 @@ function MyApp({ Component, pageProps }) {
     clone.push(e)
 
     for (let i = 0; i < playerSlect.length; i++) {
-      if (playerSlect[i] !== e) {
-        array.push(playerSlect[i])
-      }
+      if (playerSlect[i] !== e) array.push(playerSlect[i])
     }
 
     setPlayerSlect(array)
@@ -213,6 +222,7 @@ function MyApp({ Component, pageProps }) {
     setDieTwo(rb)
     setAnimation(true)
     setCount(pre => pre + 1)
+    countRef.current++
     
     if (!isBasic) {
       let rc = creatRandomNumber(6)

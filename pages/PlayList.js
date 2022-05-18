@@ -34,16 +34,16 @@ export default function PlayList({playList, setPlayList}) {
     }
 
     return(
-        <div className="table-wrapper" style={{color: 'white'}}>
+        <div className="table-wrapper text-white">
             <Inform message={display} />
-            <div style={{width: '100%', padding: '10px 10px 0px 10px'}}>
+            <div className='w-full pt-2.5 pr-2.5 pl-2.5'>
                 {playList.map(item => {
                     return(
                         <Lists key={Math.random()} item={item} which={false} handdleAction={handdleDelete} />
                     )
                 })}
             </div>
-            <button className='buttons' onClick={() => router.push('/')}>返回</button>
+            <button className='btn mt-3 bg-green-600/70' onClick={() => router.push('/')}>返回</button>
         </div>
     )
 

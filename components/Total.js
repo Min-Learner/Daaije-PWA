@@ -1,4 +1,3 @@
-import Arrow from './Arrow'
 import Confetti from 'react-confetti'
 import { useRef, useContext } from 'react'
 import { animateContext } from '../pages/_app'
@@ -8,9 +7,17 @@ export default function Total() {
     const target = useRef()
     const {dieOne, dieTwo, animation} = useContext(animateContext)
 
+    let creatNumbers = () => {
+        let array = []
+        for(let i = 0; i < 11; i++) {
+            array.push(i + 2)
+        }
+        return array
+    }
+
     return (
 
-        <div style={{display: 'flex'}}>
+        <div className='flex'>
             {dieOne + dieTwo === 0 || dieOne + dieTwo == 10 ?
                 animation ?
                 <Confetti
@@ -26,26 +33,18 @@ export default function Total() {
                 null :
                 null
             }
-            <div className='arrow-wrapper'>
-                {dieOne + dieTwo !== 0 ? <Arrow /> : null}
+            <div className='w-9 flex items-center justify-center text-5xl'>
+                {dieOne + dieTwo !== 0 ? '≮' : null}
             </div>
-            <div ref={target} style={{overflow: 'hidden', width: '120px', height: '150px', margin: '0 25px'}}>
-                <div className="img-wrapper" style={{transform: `translateX(-${(dieOne + dieTwo) * 120}px)`}}>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
-                    <span>9</span>
-                    <span>10</span>
-                    <span>11</span>
-                    <span>12</span>
+            <div ref={target} className='w-[120px] h-[150px] mx-6 overflow-hidden'>
+                <div className="flex transition-all" style={{transform: `translateX(-${(dieOne + dieTwo) * 120}px)`}}>
+                    {creatNumbers().map((n, i) => {
+                        return <span className='text-[100px] text-center flex-none w-[120px] leading-[150px]' key={i}>{n}</span>
+                    })}
                 </div>
             </div>
-            <div className='arrow-wrapper' style={{transform: 'rotate(180deg)'}}>
-                {dieOne + dieTwo !== 10 ? <Arrow /> : null}
+            <div className='w-9 flex items-center justify-center text-5xl'>
+                {dieOne + dieTwo !== 10 ? '≯' : null}
             </div>
         </div>
 

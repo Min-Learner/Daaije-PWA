@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }) {
   let [playList, setPlayList] = useState([])
   let [darr, setDarr] = useState([0, 10])
   let [count, setCount] = useState(0)
-  let [bgc, setBgc] = useState()
+  let [bgc, setBgc] = useState('#fdfffc')
   const router = useRouter()
   const countRef = useRef()
 

@@ -1,4 +1,3 @@
-import styles from '../styles/Setting.module.css'
 import Text from '../components/Text'
 import { useRouter } from 'next/router'
 import Line from '../components/Line'
@@ -29,65 +28,44 @@ export default function Home({darr, setDarr, playerSlect, playerList, playerSele
 
   return (
     <>
-      <div className={styles.wrapper}>
-            <div style={{position: 'relative',
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: '15px 0'
-                }}
-            >
-                <div
-                    style={{
-                        width: '90%',
-                        position: 'absolute',
-                        fill: 'white'
-                    }}
-                    className='animate__animated animate__zoomIn animate__delay-3s'
-                >
+      <div className='bg-[#f45b69] flex justify-center items-center min-h-screen flex-col'>
+            <div className='relative w-full flex justify-center items-center py-[15px]'>
+                <div className='w-[90%] absolute fill-white animate__animated animate__zoomIn animate__delay-3s'>
                     <Line />
                 </div>
-                <div style={{width: '80%'}} 
-                    className='animate__animated animate__hinge animate__delay-1s'
-                >
+                <div className='animate__animated animate__hinge animate__delay-1s w-[80%]'>
                     <Text />
                 </div>
             </div>
-            <p className={styles.text + ' animate__animated animate__bounceInLeft'}>按座位顺序选择玩家</p>
-            <div className={styles.playerSlectWrapper}>
+            <p className='text-white text-xl animate__animated animate__bounceInLeft'>按座位顺序选择玩家</p>
+            <div className='w-full flex justify-around my-[15px] h-[35px]'>
                 {playerSlect.map((player) => {
                     return (
-                        <p key={player} className={styles.player} onClick={() => playerSelectHandler(player)}>
+                        <p key={player}
+                            className='w-9 h-9 rounded-full bg-white text-2xl flex justify-center items-center'
+                            onClick={() => playerSelectHandler(player)}
+                        >
                             {player}
                         </p>
                     );
                 })}
             </div>
-            <p className={styles.text + ' animate__animated animate__bounceInRight'}>系统将随机选择开始玩家</p>
-            <div className={styles.playerSlectWrapper}>
+            <p className='text-white text-xl animate__animated animate__bounceInRight'>系统将随机选择开始玩家</p>
+            <div className='w-full flex justify-around my-[15px] h-[35px]'>
                 {playerList.map((player) => {
                     return (
-                        <p key={player} className={styles.player}>
+                        <p key={player} className='w-9 h-9 rounded-full bg-white text-2xl flex justify-center items-center'>
                             {player}
                         </p>
                     )
                 })}
             </div>
-            <p className={styles.text + ' animate__animated animate__tada'}>选择大爷录音播放数字</p>
-            <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    alignItems: 'center',
-                    flexWrap: 'wrap',
-                    width: '100%',
-                    margin: '15px 0 10px 0'
-                }}
-            >
+            <p className='text-white text-xl animate__animated animate__tada'>选择大爷录音播放数字</p>
+            <div className='flex justify-around items-center w-full flex-wrap mt-3.5 mb-2.5'>
                 {arr().map((number) => {
                     return (
                         <p key={number} 
-                            className={styles.audioNum}
+                            className='basis-[15%] py-1 bg-slate-100 text-center text-lg mb-2 rounded-md opacity-30'
                             style={darr.indexOf(number - 2) > -1 ? {opacity: 1} : null}
                             onClick={() => audioNumber(number)}
                         >
@@ -96,16 +74,16 @@ export default function Home({darr, setDarr, playerSlect, playerList, playerSele
                     )
                 })}
             </div>
-            <div className='mode-wrapper'>
-                <p style={{fontSize: '16px', color: 'white'}}>选择游戏模式: </p>
-                <button className={isBasic ? 'mode-select selected' : 'mode-select'} onClick={() => setIsBasic(true)}>基本包</button>
-                <button className={isBasic ? 'mode-select' : 'mode-select selected'} onClick={() => setIsBasic(false)}>騎士包</button>
+            <div className='w-full flex justify-center items-center'>
+                <p className='text-lg text-white'>选择游戏模式: </p>
+                <button type='button' className={`bg-white text-lg ml-2.5 px-2 py-1 ${isBasic ? 'text-white bg-gray-800' : ''}`} onClick={() => setIsBasic(true)}>基本包</button>
+                <button type='button' className={`bg-white text-lg ml-2.5 px-2 py-1 ${isBasic ? '' : 'text-white bg-gray-800'}`} onClick={() => setIsBasic(false)}>騎士包</button>
             </div>
-            <div className={styles.buttonWrapper}>
-                <button className={styles.button} style={{backgroundColor: '#52b788'}} onClick={set}>确定</button>
-                <button className={styles.button} style={{backgroundColor: '#fca311'}} onClick={reset}>重置</button>
-                <button className={styles.button} style={{backgroundColor: '#dda15e'}} onClick={() => router.push('/List')}>台词列表</button>
-                <button className={styles.button} style={{backgroundColor: '#0077b6'}} onClick={() => router.push('/PlayList')}>播放列表</button>
+            <div className='flex justify-around w-[95%] mt-7'>
+                <button type='button' className='btn bg-[#52b788]' onClick={set}>确定</button>
+                <button type='button' className='btn bg-[#fca311]' onClick={reset}>重置</button>
+                <button type='button' className='btn bg-[#dda15e]' onClick={() => router.push('/List')}>台词列表</button>
+                <button type='button' className='btn bg-[#0077b6]' onClick={() => router.push('/PlayList')}>播放列表</button>
             </div>
         </div>
     </>

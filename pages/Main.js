@@ -41,14 +41,14 @@ export default function Main({bgc}) {
 
     return (
         <div className="container" style={{backgroundColor: bgc}}>
-            <div style={{display: 'flex', alignItems: 'center'}}>
-                <span className="bottom-line" ref={el}></span>
-                <div style={{display: 'flex'}}>
-                    <Image src={'/daye.png'} width={35} height={35} />
+            <div className="flex items-center">
+                <span className="h-7 text-xl font-bold font-serif" ref={el}></span>
+                <div className="flex">
+                    <Image src={'/daye.png'} alt='daaije' width={35} height={35} />
                 </div>
             </div>
             <Total />
-            <div className="dice-wrapper" style={{width: '250px'}}>
+            <div className="flex justify-between relative h-[100px] w-[250px]">
                 <Dices />
             </div>
             <SecondHalf />

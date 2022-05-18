@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 export default function Layout({ children }) {
     return (
-        <main style={{maxWidth: '360px', margin: 'auto', overflow: 'hidden'}}>
+        <main className='max-w-sm m-auto overflow-hidden'>
             <Head>
                 <meta charSet="utf-8" />
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />

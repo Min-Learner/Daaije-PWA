@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react'
 import Inform from '../components/Inform'
-import Arrow from '../components/Arrow'
 import { useRouter } from 'next/router'
 import Lists from '../components/Lists'
 
@@ -60,20 +59,20 @@ export default function List({list, playList, setPlayList}) {
     }
 
     return(
-        <div className="table-wrapper" style={{color: 'white'}}>
+        <div className="table-wrapper text-white">
             <Inform message={response} />
-            <div className='search-bar'>
-                <input type={'text'} className='input-search' placeholder='搜索' onChange={e => handleSearch(e)} />
-                <div onClick={toBottom} className='to-bottom'><Arrow /></div>
+            <div className='flex items-center fixed top-0 w-full p-3.5 bg-red-500'>
+                <input type={'text'} className='rounded py-2 pl-2 text-base outline-none text-black' placeholder='搜索' onChange={e => handleSearch(e)} />
+                <div onClick={toBottom} className='ml-auto text-4xl'>&#8659;</div>
             </div>
-            <div style={{width: '100%', padding: '25px 10px 0px 10px'}}>
+            <div className='w-full px-2.5 pt-14'>
                 {copy.map(item => {
                     return(
                         <Lists key={Math.random()} item={item} which={true} handdleAction={handdleAdd} handlePlay={handlePlay} />
                     )
                 })}
             </div>
-            <button ref={bottomRef} className='buttons' onClick={() => router.push('/')}>返回</button>
+            <button ref={bottomRef} className='btn bg-green-600/70 mt-3' onClick={() => router.push('/')}>返回</button>
         </div>
     )
 

@@ -11,17 +11,17 @@ export default function EventDice() {
 
     return (
 
-        <div style={{width: '100px'}} className={animation ? 'shake' : ''}>
-            <div className={dieThree < 3 ? 'dice-card' : 'opacity'}>
+        <div className={`w-[100px] ${animation ? 'shake' : ''}`}>
+            <div className={dieThree < 3 ? 'w-[100px] h-[100px] rounded-xl p-2.5 absolute top-0 border-2 border-black' : 'hidden'}>
                 <Skull />
             </div>
-            <div className={dieThree === 3 ? 'dice-card' : 'opacity'}>
+            <div className={dieThree === 3 ? 'w-[100px] h-[100px] rounded-xl p-2.5 absolute top-0 border-2 border-black' : 'hidden'}>
                 <Trade />
             </div>
-            <div className={dieThree === 4 ? 'dice-card' : 'opacity'}>
+            <div className={dieThree === 4 ? 'w-[100px] h-[100px] rounded-xl p-2.5 absolute top-0 border-2 border-black' : 'hidden'}>
                 <Politic />
             </div>
-            <div className={dieThree === 5 ? 'dice-card' : 'opacity'}>
+            <div className={dieThree === 5 ? 'w-[100px] h-[100px] rounded-xl p-2.5 absolute top-0 border-2 border-black' : 'hidden'}>
                 <Science />
             </div>
         </div>

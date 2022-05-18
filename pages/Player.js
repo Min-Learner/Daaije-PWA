@@ -12,9 +12,9 @@ export default function Player({diceData, isBasic, startIndex, playerList}) {
 
     return (
         <div className="table-wrapper">
-            <table style={{width: '90%'}}>
+            <table>
                 <thead>
-                    <tr>
+                    <tr className="h-12 bg-violet-600">
                         <th>次数</th>
                         <th>玩家</th>
                         <th>点数</th>
@@ -24,17 +24,17 @@ export default function Player({diceData, isBasic, startIndex, playerList}) {
                     {
                         diceData.map((data, index) => {
                             return (
-                                <tr key={index}>
+                                <tr key={index} className='even:bg-white/30'>
                                     <td>{index + 1}</td>
                                     <td>{playerList[(index + startIndex) % playerList.length]}</td>
-                                    <td className="times">{data}</td>
+                                    <td>{data}</td>
                                 </tr>
                             )
                         })
                     }
                 </tbody>
             </table>
-            <button ref={target} onClick={() => isBasic ? router.push('/Main') : router.push('/Knight')} className='buttons'>返回</button>
+            <button ref={target} onClick={() => isBasic ? router.push('/Main') : router.push('/Knight')} className='btn bg-green-600/70 mt-3'>返回</button>
         </div>
     )
 

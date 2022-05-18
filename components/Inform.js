@@ -2,23 +2,10 @@ export default function Inform({message}) {
 
     return (
 
-        <div style={{position: 'fixed',
-                         top: '50%',
-                         left: '50%',
-                         transform: 'translate(-50%, -50%)',
-                         fontSize: '25px',
-                         color: 'white',
-                         backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                         display: message ? 'block' : 'none',
-                         width: '250px',
-                         height: '150px',
-                         textAlign: 'center',
-                         lineHeight: '150px',
-                         borderRadius: '10px',
-                         zIndex: '999'
-                        }}
-            >
+        <div className={`fixed top-0 left-0 w-full h-full flex bg-transparent z-50 ${message ? 'block' : 'hidden'}`}>
+            <div className="w-64 h-44 m-auto flex justify-center items-center bg-black/70 text-3xl">
                 {message}
+            </div>
         </div>
 
     )

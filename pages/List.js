@@ -14,7 +14,7 @@ export default function List({list, playList, setPlayList}) {
 
         let keyword = e.target.value
         if (keyword) {
-            let filterList = [...list].filter(i =>{return i.indexOf(keyword) >= 0})
+            let filterList = [...list].filter(i => i.indexOf(keyword) >= 0)
             setCopy(filterList)
         } else setCopy([...list])
 
@@ -42,6 +42,7 @@ export default function List({list, playList, setPlayList}) {
                 setPlayList(copy)
             }
             setResponse(res.message)
+            console.log(res.message)
             setTimeout(() => {
                 setResponse('')
             }, 700);
@@ -72,7 +73,7 @@ export default function List({list, playList, setPlayList}) {
                     )
                 })}
             </div>
-            <button ref={bottomRef} className='btn bg-green-600/70 mt-3' onClick={() => router.push('/')}>返回</button>
+            <button type='button' ref={bottomRef} className='btn bg-green-600/70 mt-3' onClick={() => router.push('/')}>返回</button>
         </div>
     )
 

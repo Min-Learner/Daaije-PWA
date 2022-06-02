@@ -1,6 +1,9 @@
 import Head from 'next/head'
+import { useRouter } from "next/router"
 
 export default function Layout({ children }) {
+    const router = useRouter()
+
     return (
         <main className='max-w-sm m-auto overflow-hidden'>
             <Head>
@@ -12,7 +15,7 @@ export default function Layout({ children }) {
                 />
                 <meta name="description" content="Description" />
                 <meta name="keywords" content="Keywords" />
-                <title>大爷显灵</title>
+                <title>大爷世界最威武</title>
 
                 <link rel="manifest" href="/manifest.json" />
                 <link

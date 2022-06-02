@@ -5,7 +5,7 @@ export default function Dice({diceData, isBasic}) {
     const router = useRouter()
 
     let arr = Array(11).fill(0)
-    diceData.forEach(d => arr[d - 2]++)
+    diceData.forEach(d => arr[d-2]++)
 
     return (
         <div className="table-wrapper">

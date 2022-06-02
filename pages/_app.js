@@ -127,7 +127,7 @@ function MyApp({ Component, pageProps }) {
 
     setTimeout(() => {
       setAnimation(false)
-    }, 1500)
+    }, 600)
 
   }, [animation])
 

@@ -1,8 +1,6 @@
 import Head from 'next/head'
-import { useRouter } from "next/router"
 
 export default function Layout({ children }) {
-    const router = useRouter()
 
     return (
         <main className='max-w-sm m-auto overflow-hidden'>

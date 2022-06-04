@@ -62,9 +62,9 @@ export default function List({list, playList, setPlayList}) {
     return(
         <div className="table-wrapper text-white">
             <Inform message={response} />
-            <div className='flex items-center fixed top-0 w-96 p-3.5 bg-sky-600'>
+            <div className='flex items-center fixed top-0 w-full max-w-sm p-2.5 bg-rose-600'>
                 <input type={'text'} className='w-8/12 rounded p-2 text-base outline-none text-black' placeholder='搜索' onChange={e => handleSearch(e)} />
-                <div onClick={toBottom} className='ml-auto text-4xl'>&#8659;</div>
+                <div onClick={toBottom} className='ml-auto text-4xl'>&#x21e9;</div>
             </div>
             <div className='w-full px-2.5 pt-14'>
                 {copy.map(item => {

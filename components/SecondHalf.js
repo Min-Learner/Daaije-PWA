@@ -10,7 +10,7 @@ export default function SecondHalf() {
     return(
 
         <>
-            <p className='flex items-center my-5 text-xl'>
+            <p className='flex items-center my-4 text-xl'>
                 第 {round} 次，下一个:<mark className='text-2xl font-bold px-2'>{currentPlayer}</mark>
             </p>
             <i>老点大爷帅气头像摇骰子</i>

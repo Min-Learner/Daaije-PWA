@@ -79,11 +79,11 @@ export default function Home({darr, setDarr, playerSlect, playerList, playerSele
                 <button type='button' className={`bg-white text-lg ml-2.5 px-2 py-1 ${isBasic ? 'text-white bg-gray-800' : ''}`} onClick={() => setIsBasic(true)}>基本包</button>
                 <button type='button' className={`bg-white text-lg ml-2.5 px-2 py-1 ${isBasic ? '' : 'text-white bg-gray-800'}`} onClick={() => setIsBasic(false)}>騎士包</button>
             </div>
-            <div className='flex justify-around w-[95%] mt-7'>
-                <button type='button' className='btn bg-[#52b788]' onClick={set}>确定</button>
-                <button type='button' className='btn bg-[#fca311]' onClick={reset}>重置</button>
-                <button type='button' className='btn bg-[#dda15e]' onClick={() => router.push('/List')}>台词列表</button>
-                <button type='button' className='btn bg-[#0077b6]' onClick={() => router.push('/PlayList')}>播放列表</button>
+            <div className='flex justify-around w-[95%] mt-5'>
+                <button type='button' className='btn bg-green-500' onClick={set}>确定</button>
+                <button type='button' className='btn bg-orange-500' onClick={reset}>重置</button>
+                <button type='button' className='btn bg-amber-500' onClick={() => router.push('/List')}>台词列表</button>
+                <button type='button' className='btn bg-sky-500' onClick={() => router.push('/PlayList')}>播放列表</button>
             </div>
         </div>
     </>

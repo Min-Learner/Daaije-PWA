@@ -42,7 +42,6 @@ export default function List({list, playList, setPlayList}) {
                 setPlayList(copy)
             }
             setResponse(res.message)
-            console.log(res.message)
             setTimeout(() => {
                 setResponse('')
             }, 700);
@@ -69,7 +68,7 @@ export default function List({list, playList, setPlayList}) {
             <div className='w-full px-2.5 pt-14'>
                 {copy.map(item => {
                     return(
-                        <Lists key={Math.random()} item={item} which={true} handdleAction={handdleAdd} handlePlay={handlePlay} />
+                        <Lists key={item} item={item} which={true} handdleAction={handdleAdd} handlePlay={handlePlay} />
                     )
                 })}
             </div>

@@ -21,7 +21,7 @@
     user-select: none;
   }
   body {
-    overscroll-behavior-y: contain;
+    overscroll-behavior: contain;
     font-family: sans-serif;
   }
   table {

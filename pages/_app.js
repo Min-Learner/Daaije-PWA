@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import wakeLock from "../utils/wakeLock";
 import { supabase } from "../utils/sbClient";
+import useDownload from "../utils/useDownload";
 import "animate.css";
 
 function MyApp({ Component, pageProps }) {
@@ -24,7 +25,6 @@ function MyApp({ Component, pageProps }) {
   let [science, setScience] = useState([]);
   let [cardHint, setCardHint] = useState("");
   let [startIndex, setStartIndex] = useState();
-  let [list, setList] = useState([]);
   let [darr, setDarr] = useState([0, 10]);
   const router = useRouter();
   const { acquireLock, handleVisibilityChange } = wakeLock();
@@ -32,14 +32,6 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     acquireLock();
     document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    if (!list.length) {
-      (async function () {
-        const { data, error } = await supabase.storage.from("audios").list();
-        if (error) console.log(error);
-        else setList(data);
-      })();
-    }
   }, []);
 
   useEffect(() => {
@@ -90,6 +82,7 @@ function MyApp({ Component, pageProps }) {
     let dataClone = diceData;
     let ra = creatRandomNumber(6);
     let rb = creatRandomNumber(6);
+    const { audio } = useDownload();
 
     if (re) {
       dataClone.pop();
@@ -101,7 +94,7 @@ function MyApp({ Component, pageProps }) {
     }
 
     dataClone.push(ra + rb + 2);
-    playAudio(ra, rb);
+    audio.play();
     setDiceData(dataClone);
     setDieOne(ra);
     setDieTwo(rb);
@@ -163,21 +156,6 @@ function MyApp({ Component, pageProps }) {
 
   let creatRandomNumber = (n) => Math.floor(Math.random() * n);
 
-  let playAudio = (a, b) => {
-    let audio = list[creatRandomNumber(list.length)];
-    if (audio) {
-      let line = new Audio(
-        `https://daaije-server.herokuapp.com/uploads/${audio}`
-      );
-      let daaije =
-        Math.random() > 0.5 ? "/music/yyds.m4a" : "/music/daaije.m4a";
-      let sound = new Audio(daaije);
-
-      if (darr.indexOf(a + b) > -1) sound.play();
-      else line.play();
-    }
-  };
-
   return (
     <AppContext.Provider
       value={{
@@ -210,7 +188,6 @@ function MyApp({ Component, pageProps }) {
           setPolitic={setPolitic}
           science={science}
           setScience={setScience}
-          list={list}
           startIndex={startIndex}
           diceData={diceData}
           {...pageProps}

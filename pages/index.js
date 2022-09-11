@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import Line from "../components/Line";
 
 export default function Home({
-  darr,
-  setDarr,
   playerSlect,
   playerList,
   playerSelectHandler,
@@ -14,22 +12,6 @@ export default function Home({
   setIsBasic,
 }) {
   const router = useRouter();
-
-  let arr = () => {
-    let arr = [];
-    for (let i = 2; i < 13; i++) arr.push(i);
-    return arr;
-  };
-
-  let audioNumber = (e) => {
-    let num = e - 2;
-    if (darr.indexOf(num) > -1) {
-      let narr = darr.filter((i) => {
-        return i !== num;
-      });
-      setDarr(narr);
-    } else setDarr([...darr, num]);
-  };
 
   return (
     <>
@@ -69,23 +51,6 @@ export default function Home({
                 className="w-9 h-9 rounded-full bg-white text-2xl flex justify-center items-center"
               >
                 {player}
-              </p>
-            );
-          })}
-        </div>
-        <p className="text-white text-xl animate__animated animate__tada">
-          选择大爷录音播放数字
-        </p>
-        <div className="flex justify-around items-center w-full flex-wrap mt-3.5 mb-2.5">
-          {arr().map((number) => {
-            return (
-              <p
-                key={number}
-                className="basis-[15%] py-1 bg-slate-100 text-center text-lg mb-2 rounded-md opacity-30"
-                style={darr.indexOf(number - 2) > -1 ? { opacity: 1 } : null}
-                onClick={() => audioNumber(number)}
-              >
-                {number}
               </p>
             );
           })}

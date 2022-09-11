@@ -1,55 +1,55 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "../utils/sbClient";
+import useDownload from "../utils/useDownload";
 
-export default function List({ list }) {
+export default function List() {
+  const { list } = useDownload();
   let bottomRef = useRef(null);
-  let [copy, setCopy] = useState([...list]);
+  let [copy, setCopy] = useState(list);
   let [uploading, setUploading] = useState(false);
   const router = useRouter();
 
   let handleFile = async (e) => {
     setUploading(true);
+
     const chosenFiles = Array.prototype.slice.call(e.target.files);
     let promises = [];
+
     chosenFiles.forEach((file) => {
-      const splitName = file.name.split(".");
-      const fileName = encodeURIComponent(splitName[0]).replace(/%/g, "0");
-      const extention = "." + splitName[1];
+      const fileName = encodeURIComponent(file.name).replace(/%/g, "z");
+
       function returnPromise() {
         return new Promise(async (resolve, reject) => {
           try {
-            await supabase.storage
-              .from("audios")
-              .upload(fileName + extention, file);
+            await supabase.storage.from("audios").upload(fileName, file);
             resolve();
           } catch (error) {
             reject(error);
           }
         });
       }
-      promises.push(returnPromise().catch((e) => console.log(e)));
+
+      if (!list.includes(fileName)) {
+        promises.push(returnPromise().catch((e) => console.log(e)));
+      }
     });
+
     await Promise.all(promises);
     setUploading(false);
   };
 
   let handleSearch = (e) => {
-    let keyword = e.target.value;
+    const keyword = e.target.value;
+
     if (keyword) {
-      let filterList = [...list].filter((i) => i.indexOf(keyword) >= 0);
+      let filterList = list.filter((i) => i.includes(keyword));
       setCopy(filterList);
-    } else setCopy([...list]);
+    } else setCopy(list);
   };
 
   let toBottom = () => {
     bottomRef.current.scrollIntoView({ behavior: "smooth" });
-  };
-
-  let handlePlay = (e) => {
-    let url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/audios/${e}`;
-    let audio = new Audio(url);
-    audio.play();
   };
 
   return (
@@ -95,13 +95,13 @@ export default function List({ list }) {
           return (
             <div
               className="flex justify-between items-center h-11 px-2.5 odd:bg-white/30"
-              key={item.id}
+              key={item}
             >
               <span
                 className="flex-1 text-lg overflow-hidden whitespace-nowrap text-ellipsis"
-                onClick={() => handlePlay(item.name)}
+                onClick={() => playAudio(item)}
               >
-                {decodeURIComponent(item.name.replace(/0/g, "%"))}
+                {item}
               </span>
               {/* <span className='text-xl text-black/60' onClick={() => handdleAction(item)}>✘</span> */}
             </div>

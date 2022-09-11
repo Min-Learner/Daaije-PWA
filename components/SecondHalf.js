@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
-import { useContext, useState } from "react/";
-import { animateContext } from "../pages/_app";
+import { useState } from "react/";
+import { useAppContext } from "../pages/_app";
 
 export default function SecondHalf() {
   const [coolTime, setCoolTime] = useState(false);
   const router = useRouter();
   const { animation, setCurrentPlayer, roll, round, currentPlayer } =
-    useContext(animateContext);
+    useAppContext();
 
   let handleClick = () => {
     if (!coolTime) {

@@ -27,7 +27,6 @@ function MyApp({ Component, pageProps }) {
   let [list, setList] = useState([]);
   let [darr, setDarr] = useState([0, 10]);
   const router = useRouter();
-  const AppContext = createContext();
   const { acquireLock, handleVisibilityChange } = wakeLock();
 
   useEffect(() => {
@@ -221,5 +220,6 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
+export const AppContext = createContext();
 export const useAppContext = () => useContext(AppContext);
 export default MyApp;

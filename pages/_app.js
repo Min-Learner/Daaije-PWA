@@ -5,6 +5,7 @@ import Layout from "../components/Layout";
 import wakeLock from "../utils/wakeLock";
 import { supabase } from "../utils/sbClient";
 import useDownload from "../utils/useDownload";
+import playAudio from "../utils/playAudio";
 import "animate.css";
 
 function MyApp({ Component, pageProps }) {
@@ -25,9 +26,9 @@ function MyApp({ Component, pageProps }) {
   let [science, setScience] = useState([]);
   let [cardHint, setCardHint] = useState("");
   let [startIndex, setStartIndex] = useState();
-  let [darr, setDarr] = useState([0, 10]);
   const router = useRouter();
   const { acquireLock, handleVisibilityChange } = wakeLock();
+  const list = useDownload();
 
   useEffect(() => {
     acquireLock();
@@ -82,7 +83,6 @@ function MyApp({ Component, pageProps }) {
     let dataClone = diceData;
     let ra = creatRandomNumber(6);
     let rb = creatRandomNumber(6);
-    const { audio } = useDownload();
 
     if (re) {
       dataClone.pop();
@@ -94,7 +94,7 @@ function MyApp({ Component, pageProps }) {
     }
 
     dataClone.push(ra + rb + 2);
-    audio.play();
+    playAudio(list[creatRandomNumber(list.length)]);
     setDiceData(dataClone);
     setDieOne(ra);
     setDieTwo(rb);
@@ -171,8 +171,6 @@ function MyApp({ Component, pageProps }) {
     >
       <Layout>
         <Component
-          darr={darr}
-          setDarr={setDarr}
           playerSlect={playerSlect}
           playerList={playerList}
           playerSelectHandler={playerSelectHandler}

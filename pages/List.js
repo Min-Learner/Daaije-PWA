@@ -1,14 +1,19 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import { supabase } from "../utils/sbClient";
 import useDownload from "../utils/useDownload";
+import playAudio from "../utils/playAudio";
 
 export default function List() {
-  const { list } = useDownload();
   let bottomRef = useRef(null);
-  let [copy, setCopy] = useState(list);
+  let [copy, setCopy] = useState([]);
   let [uploading, setUploading] = useState(false);
   const router = useRouter();
+  const list = useDownload();
+
+  useEffect(() => {
+    if (!copy.length && list) setCopy([...list]);
+  }, [list]);
 
   let handleFile = async (e) => {
     setUploading(true);
@@ -75,7 +80,7 @@ export default function List() {
           type="file"
           multiple
           accept="audio/*"
-          onChange={handleFile}
+          onChange={(e) => handleFile(e)}
           className="hidden"
         />
         <label
@@ -101,7 +106,7 @@ export default function List() {
                 className="flex-1 text-lg overflow-hidden whitespace-nowrap text-ellipsis"
                 onClick={() => playAudio(item)}
               >
-                {item}
+                {item.split(".")[0]}
               </span>
               {/* <span className='text-xl text-black/60' onClick={() => handdleAction(item)}>✘</span> */}
             </div>

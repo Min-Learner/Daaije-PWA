@@ -88,12 +88,12 @@ export default function Home({
             className="btn bg-amber-500"
             onClick={() => router.push("/List")}
           >
-            台词列表
+            音频列表
           </button>
           <button
             type="button"
             className="btn bg-sky-500"
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/test")}
           >
             测试
           </button>

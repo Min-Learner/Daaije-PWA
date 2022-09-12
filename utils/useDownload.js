@@ -12,9 +12,11 @@ const useDownload = () => {
     })();
   }, []);
 
-  return [...list].map((file) =>
-    decodeURIComponent(file.name.replace(/z/g, "%"))
-  );
+  if (list.length) {
+    return [...list].map((file) =>
+      decodeURIComponent(file.name.replace(/z/g, "%"))
+    );
+  }
 };
 
 export default useDownload;

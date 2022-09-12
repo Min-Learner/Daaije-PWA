@@ -3,7 +3,6 @@ import { useState, useEffect, createContext, useContext } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import wakeLock from "../utils/wakeLock";
-import { supabase } from "../utils/sbClient";
 import useDownload from "../utils/useDownload";
 import playAudio from "../utils/playAudio";
 import "animate.css";

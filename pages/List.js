@@ -5,14 +5,19 @@ import useDownload from "../utils/useDownload";
 import playAudio from "../utils/playAudio";
 
 export default function List() {
-  let bottomRef = useRef(null);
-  let [copy, setCopy] = useState([]);
-  let [uploading, setUploading] = useState(false);
+  const bottomRef = useRef(null);
+  const [copy, setCopy] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const [numberOfFiles, setNumberOfFiles] = useState(0);
   const router = useRouter();
+  const listRef = useRef(null);
   const list = useDownload();
 
   useEffect(() => {
-    if (!copy.length && list) setCopy([...list]);
+    if (!copy.length && list) {
+      setCopy([...list]);
+      listRef.current = [...list];
+    }
   }, [list]);
 
   let handleFile = async (e) => {
@@ -35,22 +40,25 @@ export default function List() {
         });
       }
 
-      if (!list.includes(fileName)) {
+      if (!listRef.current.includes(file.name)) {
         promises.push(returnPromise().catch((e) => console.log(e)));
+        listRef.current.push(file.name);
       }
     });
 
+    setNumberOfFiles(promises.length);
     await Promise.all(promises);
     setUploading(false);
+    setCopy([...listRef.current]);
   };
 
   let handleSearch = (e) => {
     const keyword = e.target.value;
 
     if (keyword) {
-      let filterList = list.filter((i) => i.includes(keyword));
+      let filterList = listRef.current.filter((i) => i.includes(keyword));
       setCopy(filterList);
-    } else setCopy(list);
+    } else setCopy(listRef.current);
   };
 
   let toBottom = () => {
@@ -65,8 +73,14 @@ export default function List() {
         }`}
       >
         <p className="m-auto text-3xl w-72 h-48 bg-black/70 flex items-center justify-center">
-          上传中...
+          {numberOfFiles}个文件上传中...
         </p>
+      </div>
+      <div
+        onClick={toBottom}
+        className="fixed rotate-90 bottom-20 right-7 text-3xl w-10 h-10 rounded-full bg-amber-500 grid place-content-center sm:hidden"
+      >
+        &#10148;
       </div>
       <div className="flex items-center fixed top-0 w-full max-w-sm p-2.5 bg-blue-600">
         <input
@@ -85,15 +99,12 @@ export default function List() {
         />
         <label
           htmlFor="upload"
-          className="w-20 rounded ml-1 flex border-2 text-center h-10  border-white"
+          className="w-20 rounded ml-auto flex border-2 text-center h-10  border-white"
         >
           <a className={`m-auto ${uploading ? "pointer-events-none" : ""}`}>
             上传文件
           </a>
         </label>
-        <div onClick={toBottom} className="ml-auto text-4xl">
-          &#x21e9;
-        </div>
       </div>
       <div className="w-full px-2.5 pt-14">
         {copy.map((item) => {

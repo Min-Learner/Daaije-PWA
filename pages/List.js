@@ -9,13 +9,15 @@ export default function List() {
   const [copy, setCopy] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [numberOfFiles, setNumberOfFiles] = useState(0);
+  const [isInit, setIsInit] = useState(true);
   const router = useRouter();
   const listRef = useRef(null);
   const list = useDownload();
 
   useEffect(() => {
-    if (!copy.length && list) {
+    if (!copy.length && list && isInit) {
       setCopy([...list]);
+      setIsInit(false);
       listRef.current = [...list];
     }
   }, [list]);
@@ -50,6 +52,7 @@ export default function List() {
     await Promise.all(promises);
     setUploading(false);
     setCopy([...listRef.current]);
+    toBottom();
   };
 
   let handleSearch = (e) => {
@@ -57,8 +60,8 @@ export default function List() {
 
     if (keyword) {
       let filterList = listRef.current.filter((i) => i.includes(keyword));
-      setCopy(filterList);
-    } else setCopy(listRef.current);
+      setCopy([...filterList]);
+    } else setCopy([...listRef.current]);
   };
 
   let toBottom = () => {
@@ -76,16 +79,10 @@ export default function List() {
           {numberOfFiles}个文件上传中...
         </p>
       </div>
-      <div
-        onClick={toBottom}
-        className="fixed rotate-90 bottom-20 right-7 text-3xl w-10 h-10 rounded-full bg-amber-500 grid place-content-center sm:hidden"
-      >
-        &#10148;
-      </div>
       <div className="flex items-center fixed top-0 w-full max-w-sm p-2.5 bg-blue-600">
         <input
           type={"text"}
-          className="w-8/12 rounded p-2 text-base outline-none text-black"
+          className="w-7/12 rounded p-2 text-base outline-none text-black"
           placeholder="搜 索"
           onChange={(e) => handleSearch(e)}
         />
@@ -105,6 +102,9 @@ export default function List() {
             上传文件
           </a>
         </label>
+        <div className="text-4xl ml-auto" onClick={() => router.push("/")}>
+          &#8962;
+        </div>
       </div>
       <div className="w-full px-2.5 pt-14">
         {copy.map((item) => {
@@ -124,14 +124,7 @@ export default function List() {
           );
         })}
       </div>
-      <button
-        type="button"
-        ref={bottomRef}
-        className="btn bg-green-600/70 mt-3"
-        onClick={() => router.push("/")}
-      >
-        返回
-      </button>
+      <div ref={bottomRef}></div>
     </div>
   );
 }

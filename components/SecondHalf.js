@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react/";
+import { useState, useEffect } from "react/";
 import { useAppContext } from "../pages/_app";
 
 export default function SecondHalf() {
@@ -7,6 +7,10 @@ export default function SecondHalf() {
   const router = useRouter();
   const { animation, setCurrentPlayer, roll, round, currentPlayer } =
     useAppContext();
+
+  useEffect(() => {
+    !currentPlayer && router.push("/");
+  }, []);
 
   let handleClick = () => {
     if (!coolTime) {

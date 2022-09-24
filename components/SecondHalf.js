@@ -1,22 +1,40 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react/";
-import { useAppContext } from "../pages/_app";
+import { useAppContext } from "../utils/appContext";
+import useDownload from "../utils/useDownload";
+import playAudio from "../utils/playAudio";
+
+let timer;
 
 export default function SecondHalf() {
   const [coolTime, setCoolTime] = useState(false);
   const router = useRouter();
-  const { animation, setCurrentPlayer, roll, round, currentPlayer } =
-    useAppContext();
+  const list = useDownload();
+  const {
+    basicState: { animation, round, currentPlayer },
+    basicDispatch,
+  } = useAppContext();
 
   useEffect(() => {
     !currentPlayer && router.push("/");
   }, []);
 
-  let handleClick = () => {
+  useEffect(() => {
+    list &&
+      animation &&
+      playAudio(list[Math.floor(Math.random() * list.length)]);
+  }, [animation]);
+
+  //根据React官方文档，cleanup function不仅在unmount的时候发动，而且也会在useEffect发动的时候发动，除了第一次发动。所以setTimeOut的cleanup要放在一个空数组的useEffect里面，这样该useEffect只会发动一次，cleanup也只在unmount的时候发动；如果放在上面的useEffect中，在第2次useEffect发动的时候，cleanup也会发动，从而导致setTimeOut用不了
+  useEffect(() => {
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleClick = () => {
     if (!coolTime) {
-      roll(false);
+      basicDispatch({ type: "roll" });
       setCoolTime(true);
-      setTimeout(() => {
+      timer = setTimeout(() => {
         setCoolTime(false);
       }, 2000);
     }
@@ -25,7 +43,7 @@ export default function SecondHalf() {
   return (
     <>
       <p className="flex items-center my-4 text-xl">
-        第 {round} 次，下一个:
+        {`第 ${round} 次，${round ? "当前玩家" : "开始玩家"}:`}
         <mark className="text-2xl font-bold px-2">{currentPlayer}</mark>
       </p>
       <i>老点大爷帅气头像摇骰子</i>
@@ -35,32 +53,29 @@ export default function SecondHalf() {
       >
         <img src="yyds.jpg" alt="" className="w-28 rounded-md" />
       </div>
-      <div className="flex justify-between w-full mt-5">
+      <div className="flex justify-around w-full mt-5">
         <button
-          onClick={() => {
-            router.push("/");
-            setCurrentPlayer("");
-          }}
-          className="btn bg-orange-400"
+          onClick={() => router.push("/")}
+          className="btn w-20 bg-orange-400"
         >
           设定
         </button>
         <button
-          onClick={() => roll(true)}
-          className="btn bg-red-600"
+          onClick={() => basicDispatch({ type: "reroll" })}
+          className="btn w-20 bg-red-600"
           disabled={!round}
         >
           重摇
         </button>
         <button
-          onClick={() => router.push("/Dice")}
-          className="btn bg-green-700"
+          onClick={() => router.push("/dice")}
+          className="btn w-20 bg-green-700"
         >
           次数记录
         </button>
         <button
-          onClick={() => router.push("/Player")}
-          className="btn bg-sky-600"
+          onClick={() => router.push("/player")}
+          className="btn w-20 bg-sky-600"
         >
           玩家记录
         </button>

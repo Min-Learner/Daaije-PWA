@@ -1,10 +1,16 @@
-import { useAppContext } from "../pages/_app";
+import { useAppContext } from "../utils/appContext";
 
 export default function Dice({ which, dice }) {
-  const { animation } = useAppContext();
+  const {
+    basicState: { animation },
+  } = useAppContext();
 
   return (
-    <div className={animation ? "shake" : ""}>
+    <div
+      className={
+        animation ? "animate__wobble animate__animated animate__faster" : ""
+      }
+    >
       <div className={dice === 5 ? which + " dice six" : "hidden"}>
         <span></span>
         <span></span>

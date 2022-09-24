@@ -22,7 +22,7 @@ export default function List() {
     }
   }, [list]);
 
-  let handleFile = async (e) => {
+  const handleFile = async (e) => {
     setUploading(true);
 
     const chosenFiles = Array.prototype.slice.call(e.target.files);
@@ -55,16 +55,16 @@ export default function List() {
     toBottom();
   };
 
-  let handleSearch = (e) => {
+  const handleSearch = (e) => {
     const keyword = e.target.value;
 
     if (keyword) {
-      let filterList = listRef.current.filter((i) => i.includes(keyword));
+      const filterList = listRef.current.filter((i) => i.includes(keyword));
       setCopy([...filterList]);
     } else setCopy([...listRef.current]);
   };
 
-  let toBottom = () => {
+  const toBottom = () => {
     bottomRef.current.scrollIntoView({ behavior: "smooth" });
   };
 

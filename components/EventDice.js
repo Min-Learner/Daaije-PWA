@@ -2,17 +2,23 @@ import Politic from "../components/Politic";
 import Science from "../components/Science";
 import Skull from "../components/Skull";
 import Trade from "../components/Trade";
-import { useAppContext } from "../pages/_app";
+import { useAppContext } from "../utils/appContext";
 
 export default function EventDice() {
-  const { animation, dieThree } = useAppContext();
+  const {
+    basicState: { animation, dieThree },
+  } = useAppContext();
 
   return (
-    <div className={`w-[100px] ${animation ? "shake" : ""}`}>
+    <div
+      className={`w-[100px] ${
+        animation ? "animate__wobble animate__animated animate__faster" : ""
+      }`}
+    >
       <div
         className={
-          dieThree < 3
-            ? "w-[100px] h-[100px] rounded-xl p-2.5 absolute top-0 border-2 border-black"
+          dieThree > 2
+            ? "w-[100px] h-[100px] rounded-xl p-2.5 border-2 border-black"
             : "hidden"
         }
       >
@@ -20,8 +26,8 @@ export default function EventDice() {
       </div>
       <div
         className={
-          dieThree === 3
-            ? "w-[100px] h-[100px] rounded-xl p-2.5 absolute top-0 border-2 border-black"
+          dieThree === 0
+            ? "w-[100px] h-[100px] rounded-xl p-2.5 border-2 border-black"
             : "hidden"
         }
       >
@@ -29,8 +35,8 @@ export default function EventDice() {
       </div>
       <div
         className={
-          dieThree === 4
-            ? "w-[100px] h-[100px] rounded-xl p-2.5 absolute top-0 border-2 border-black"
+          dieThree === 1
+            ? "w-[100px] h-[100px] rounded-xl p-2.5 border-2 border-black"
             : "hidden"
         }
       >
@@ -38,8 +44,8 @@ export default function EventDice() {
       </div>
       <div
         className={
-          dieThree === 5
-            ? "w-[100px] h-[100px] rounded-xl p-2.5 absolute top-0 border-2 border-black"
+          dieThree === 2
+            ? "w-[100px] h-[100px] rounded-xl p-2.5 border-2 border-black"
             : "hidden"
         }
       >

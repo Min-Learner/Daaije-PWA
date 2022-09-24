@@ -1,7 +1,9 @@
-import { useAppContext } from "../pages/_app";
+import { useAppContext } from "../utils/appContext";
 
 export default function Total() {
-  const { dieOne, dieTwo } = useAppContext();
+  const {
+    basicState: { dieOne, dieTwo },
+  } = useAppContext();
 
   let creatNumbers = () => {
     let array = [];

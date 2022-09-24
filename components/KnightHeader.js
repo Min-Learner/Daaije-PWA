@@ -1,19 +1,20 @@
-import Pirate from "../components/Pirate";
-import SecondHalf from "../components/SecondHalf";
+import { useAppContext } from "../utils/appContext";
 import Image from "next/image";
-import Total from "../components/Total";
+import Pirate from "../components/Pirate";
 import { useRouter } from "next/router";
-import EventDice from "../components/EventDice";
-import Dices from "../components/Dices";
 
-export default function Knight({ pirate, cardHint }) {
-  let x = (pirate % 7) * 39 + 21 + "px";
-  let y = (pirate % 7) % 2 ? "40%" : "0";
-  let array = "大爷世界最威武".split("");
+export default function KnightHeader() {
+  const {
+    basicState: { pirate, cardInfo },
+  } = useAppContext();
   const router = useRouter();
 
+  let x = (pirate % 7) * 39 + 21 + "px";
+  let y = (pirate % 7) % 2 ? "40%" : "0";
+  const array = "大爷世界最威武".split("");
+
   return (
-    <div className="container">
+    <>
       <div className="w-[350px] flex justify-center relative">
         <div
           className="w-[35px] h-[35px] absolute bg-black text-white flex justify-center items-center left-0 border-none p-1.5 rounded-full transition-all z-50"
@@ -33,18 +34,12 @@ export default function Knight({ pirate, cardHint }) {
         })}
         <span
           className="translate-y-[40%] w-[35px] h-[35px] mx-0.5 rounded-full flex justify-center items-center"
-          onClick={() => router.push("/Progress")}
+          onClick={() => router.push("/progress")}
         >
           <Image alt="" src="/daye.png" width={35} height={35} />
         </span>
       </div>
-      <p className="h-7 mt-5 font-bold text-lg">{cardHint}</p>
-      <Total />
-      <div className="flex justify-between relative h-[100px] w-full">
-        <Dices />
-        <EventDice />
-      </div>
-      <SecondHalf />
-    </div>
+      <p className="h-7 mt-5 font-bold text-lg">{cardInfo}</p>
+    </>
   );
 }

@@ -4,70 +4,19 @@
 
 @layer components {
   .btn {
-    @apply text-base w-[75px] py-2.5 rounded-lg text-center text-white border-none outline-none
-  }
-  .container {
-    @apply flex flex-col justify-center items-center min-h-screen px-5
+    @apply text-base py-2 rounded text-center text-white outline-none;
   }
   .table-wrapper {
-    @apply w-full py-5 min-h-screen flex flex-col justify-center items-center bg-[#f45b69]
+    @apply w-full py-5 min-h-screen flex flex-col justify-center items-center bg-[#f45b69];
   }
 }
 
 @layer base {
   * {
-    margin: 0;
-    padding: 0;
-    user-select: none;
+    @apply select-none;
   }
   body {
-    overscroll-behavior: contain;
-    font-family: sans-serif;
-  }
-  table {
-    @apply w-11/12 text-center text-2xl text-white border-collapse
-  }
-  td {
-    @apply border-collapse
-  }
-  th {
-    @apply border-collapse
-  }
-  tr {
-    height: 40px;
-  }
-}
-
-.shake{
-  animation: shake 0.5s;
-}
-
-@keyframes shake {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  15% {
-    transform: translate3d(-25%, 0, 0)
-               rotate3d(0, 0, 1, -5deg);
-  }
-  30% {
-    transform: translate3d(20%, 0, 0)
-               rotate3d(0, 0, 1, 3deg);
-  }
-  45% {
-    transform: translate3d(-15%, 0, 0)
-               rotate3d(0, 0, 1, -3deg);
-  }
-  60% {
-    transform: translate3d(10%, 0, 0)
-               rotate3d(0, 0, 1, 2deg);
-  }
-  75% {
-    transform: translate3d(-5%, 0, 0)
-               rotate3d(0, 0, 1, -1deg);
-  }
-  to {
-    transform: translate3d(0, 0, 0);
+    @apply overscroll-contain font-sans;
   }
 }
 
@@ -175,4 +124,3 @@
 .two span:nth-of-type(2) {
   grid-area: nine;
 }
-

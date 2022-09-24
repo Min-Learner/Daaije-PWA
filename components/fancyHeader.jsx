@@ -101,7 +101,7 @@ export default function FancyHeader() {
       </div>
       <div className="flex items-center bg-green-700 w-full py-2">
         <p
-          className={`text-3xl flex-1 text-center text-amber-300 ${
+          className={`text-2xl flex-1 text-center text-amber-300 ${
             color ? "translate-x-4" : ""
           }`}
         >
@@ -116,7 +116,7 @@ export default function FancyHeader() {
           割马哥屌啊
         </p>
       </div>
-      <p className="bg-blue-800 w-full h-12 pl-10 flex items-center text-white">
+      <p className="bg-blue-800 w-full h-12 pl-5 flex items-center text-white">
         <span
           className={`py-0.5 px-2 mr-2 text-lg inline-block ${
             color ? "bg-red-600 text-yellow-400" : "bg-yellow-500 text-black"

@@ -116,7 +116,7 @@ export default function FancyHeader() {
           割马哥屌啊
         </p>
       </div>
-      <p className="bg-blue-800 w-full h-12 pl-2 flex items-center text-white">
+      <p className="bg-blue-800 w-full h-12 flex justify-center items-center text-white">
         <span
           className={`py-0.5 px-2 mr-2 text-lg inline-block ${
             color ? "bg-red-600 text-yellow-400" : "bg-yellow-500 text-black"
@@ -132,11 +132,11 @@ export default function FancyHeader() {
 }
 
 const First = () => {
-  return <span className="text-lg text-yellow-300 ml-1">得</span>;
+  return <span className="text-lg w-[18px] text-yellow-300 ml-1">得</span>;
 };
 const Second = () => {
-  return <span className="text-xl text-yellow-300 mx-2">永</span>;
+  return <span className="text-xl w-5 text-yellow-300 mx-2">永</span>;
 };
 const Third = () => {
-  return <span className="text-2xl text-yellow-300">生</span>;
+  return <span className="text-2xl w-6 text-yellow-300">生</span>;
 };

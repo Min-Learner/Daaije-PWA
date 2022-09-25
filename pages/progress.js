@@ -77,7 +77,7 @@ export default function Progress() {
       </div>
       <button
         type="button"
-        className="btn bg-orange-700 mt-5"
+        className="btn w-11/12 bg-blue-600 mt-5"
         onClick={() => router.push("/basic")}
       >
         確定

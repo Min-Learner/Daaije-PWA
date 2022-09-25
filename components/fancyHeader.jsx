@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Knife from "../public/knife";
 
-let smallInterval, bgInterval, colorChangeInterval;
+let longInterval, mediumInterval, shortInterval;
 
 export default function FancyHeader() {
   const [isSmall, setIsSmall] = useState(true);
@@ -12,48 +12,24 @@ export default function FancyHeader() {
   const daaije = "大爷超级无敌世界最威武".split("");
 
   useEffect(() => {
-    smallInterval = setInterval(() => {
+    longInterval = setInterval(() => {
       setIsSmall((prev) => !prev);
     }, 500);
-    bgInterval = setInterval(() => {
+    mediumInterval = setInterval(() => {
       setBgChange((prev) => !prev);
       setOrder((prev) => (prev + 1) % 11);
       setStep((prev) => (prev + 1) % 4);
     }, 300);
-    colorChangeInterval = setInterval(() => {
+    shortInterval = setInterval(() => {
       setColor((prev) => !prev);
     }, 150);
 
     return () => {
-      clearInterval(smallInterval);
-      clearInterval(bgInterval);
-      clearInterval(colorChangeInterval);
+      clearInterval(longInterval);
+      clearInterval(mediumInterval);
+      clearInterval(shortInterval);
     };
   }, []);
-
-  function textAnimate(step) {
-    switch (step) {
-      case 0:
-        return <First />;
-      case 1:
-        return (
-          <>
-            <First />
-            <Second />
-          </>
-        );
-      case 2:
-        return (
-          <>
-            <First />
-            <Second />
-            <Third />
-          </>
-        );
-      default:
-        return null;
-    }
-  }
 
   return (
     <>
@@ -125,18 +101,26 @@ export default function FancyHeader() {
           据砖家研究发现
         </span>
         信仲哥可以
-        {textAnimate(step)}
+        <span
+          className={`text-lg text-yellow-300 ml-1 ${
+            step > 0 ? "" : "opacity-0"
+          }`}
+        >
+          得
+        </span>
+        <span
+          className={`text-xl text-yellow-300 mx-2 ${
+            step > 1 ? "" : "opacity-0"
+          }`}
+        >
+          永
+        </span>
+        <span
+          className={`text-2xl text-yellow-300 ${step > 2 ? "" : "opacity-0"}`}
+        >
+          生
+        </span>
       </p>
     </>
   );
 }
-
-const First = () => {
-  return <span className="text-lg w-[18px] text-yellow-300 ml-1">得</span>;
-};
-const Second = () => {
-  return <span className="text-xl w-5 text-yellow-300 mx-2">永</span>;
-};
-const Third = () => {
-  return <span className="text-2xl w-6 text-yellow-300">生</span>;
-};

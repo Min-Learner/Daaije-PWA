@@ -1,11 +1,10 @@
 import { useState, useRef } from "react";
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Test() {
   const [result, setResult] = useState(Array(11).fill(0));
   const [times, setTimes] = useState(10000);
   const timesRef = useRef(10000);
-  const router = useRouter();
 
   const testProbability = (t) => {
     let count = 0;
@@ -66,13 +65,11 @@ export default function Test() {
           );
         })}
       </div>
-      <button
-        className="w-11/12 rounded bg-green-600 text-white text-xl py-1"
-        type="button"
-        onClick={() => router.push("/")}
-      >
-        返 回
-      </button>
+      <Link href="/">
+        <a className="w-11/12 text-center rounded bg-green-600 text-white text-xl py-1">
+          返 回
+        </a>
+      </Link>
     </div>
   );
 }

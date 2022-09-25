@@ -1,12 +1,18 @@
-import { useRouter } from "next/router";
 import { useAppContext } from "../utils/appContext";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import Link from "next/link";
 
 export default function Progress() {
-  const router = useRouter();
   const {
-    basicState: { playerList, progress },
+    basicState: { playerList, progress, currentPlayer },
     basicDispatch,
   } = useAppContext();
+  const router = useRouter();
+
+  useEffect(() => {
+    !currentPlayer && router.push("/");
+  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen text-white bg-[#f45b69] py-5 px-2.5">
@@ -75,13 +81,11 @@ export default function Progress() {
           );
         })}
       </div>
-      <button
-        type="button"
-        className="btn w-11/12 bg-blue-600 mt-5"
-        onClick={() => router.push("/basic")}
-      >
-        確定
-      </button>
+      <Link href="/basic">
+        <a className="w-11/12 text-center rounded bg-blue-600 text-white text-xl py-1 mt-3">
+          确 定
+        </a>
+      </Link>
     </div>
   );
 }

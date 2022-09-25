@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import { supabase } from "../utils/sbClient";
 import useDownload from "../utils/useDownload";
 import playAudio from "../utils/playAudio";
@@ -10,7 +10,6 @@ export default function List() {
   const [uploading, setUploading] = useState(false);
   const [numberOfFiles, setNumberOfFiles] = useState(0);
   const [isInit, setIsInit] = useState(true);
-  const router = useRouter();
   const listRef = useRef(null);
   const list = useDownload();
 
@@ -96,15 +95,17 @@ export default function List() {
         />
         <label
           htmlFor="upload"
-          className="w-20 rounded ml-auto flex border-2 text-center h-10  border-white"
+          className="px-2 rounded ml-auto flex border-2 text-center h-10  border-white bg-yellow-500"
         >
           <a className={`m-auto ${uploading ? "pointer-events-none" : ""}`}>
-            上传文件
+            上 传
           </a>
         </label>
-        <div className="text-4xl ml-auto" onClick={() => router.push("/")}>
-          &#8962;
-        </div>
+        <Link href="/">
+          <a className="px-2 rounded grid place-content-center border-2 h-10  border-white bg-green-600 ml-2">
+            返 回
+          </a>
+        </Link>
       </div>
       <div className="w-full px-2.5 pt-14">
         {copy.map((item) => {

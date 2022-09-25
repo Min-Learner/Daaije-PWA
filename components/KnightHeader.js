@@ -36,7 +36,7 @@ export default function KnightHeader() {
           className="translate-y-[40%] w-[35px] h-[35px] mx-0.5 rounded-full flex justify-center items-center"
           onClick={() => router.push("/progress")}
         >
-          <Image alt="" src="/daye.png" width={35} height={35} />
+          <Image alt="daaije" src="/daye.png" width={35} height={35} />
         </span>
       </div>
       <p className="h-7 mt-5 font-bold text-lg">{cardInfo}</p>

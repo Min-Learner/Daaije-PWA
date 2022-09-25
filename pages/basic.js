@@ -1,4 +1,6 @@
 import { useAppContext } from "../utils/appContext";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import SecondHalf from "../components/SecondHalf";
 import Total from "../components/Total";
 import Dice from "../components/Dice";
@@ -8,9 +10,14 @@ import KnightHeader from "../components/KnightHeader";
 
 export default function Basic() {
   const {
-    basicState: { dieOne, dieTwo },
+    basicState: { dieOne, dieTwo, currentPlayer },
     isBasic,
   } = useAppContext();
+  const router = useRouter();
+
+  useEffect(() => {
+    !currentPlayer && router.push("/");
+  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen">

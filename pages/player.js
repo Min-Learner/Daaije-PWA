@@ -1,10 +1,9 @@
 import { useEffect, useRef } from "react";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import { useAppContext } from "../utils/appContext";
 
 export default function Player() {
   const target = useRef();
-  const router = useRouter();
   const {
     basicState: { diceData, startIndex, playerList },
   } = useAppContext();
@@ -35,13 +34,14 @@ export default function Player() {
           })}
         </tbody>
       </table>
-      <button
-        ref={target}
-        onClick={() => router.back()}
-        className="btn w-11/12 bg-green-600 mt-3"
-      >
-        返回
-      </button>
+      <Link href="/basic">
+        <a
+          ref={target}
+          className="w-11/12 text-center rounded bg-green-600 text-white text-xl py-1 mt-3"
+        >
+          返 回
+        </a>
+      </Link>
     </div>
   );
 }

@@ -1,11 +1,10 @@
-import { useRouter } from "next/router";
 import { useAppContext } from "../utils/appContext";
+import Link from "next/link";
 
 export default function Dice() {
   const {
     basicState: { diceData },
   } = useAppContext();
-  const router = useRouter();
 
   const arr = Array(11).fill(0);
   diceData.forEach((d) => arr[d - 2]++);
@@ -30,13 +29,11 @@ export default function Dice() {
           );
         })}
       </div>
-      <button
-        type="button"
-        onClick={() => router.back()}
-        className="btn w-11/12 bg-green-600 mt-3"
-      >
-        返回
-      </button>
+      <Link href="/basic">
+        <a className="w-11/12 text-center rounded bg-green-600 text-white text-xl mt-3 py-1">
+          返 回
+        </a>
+      </Link>
     </div>
   );
 }

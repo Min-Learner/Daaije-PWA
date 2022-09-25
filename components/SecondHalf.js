@@ -16,10 +16,6 @@ export default function SecondHalf() {
   } = useAppContext();
 
   useEffect(() => {
-    !currentPlayer && router.push("/");
-  }, []);
-
-  useEffect(() => {
     list &&
       animation &&
       playAudio(list[Math.floor(Math.random() * list.length)]);

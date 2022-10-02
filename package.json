@@ -11,6 +11,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.0.0-rc.10",
     "animate.css": "^4.1.1",
+    "howler": "^2.2.3",
     "next": "12.1.0",
     "next-pwa": "^5.5.2",
     "react": "17.0.2",

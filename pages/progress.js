@@ -82,7 +82,7 @@ export default function Progress() {
         })}
       </div>
       <Link href="/basic">
-        <a className="w-11/12 text-center rounded bg-blue-600 text-white text-xl py-1 mt-3">
+        <a className="w-full text-center rounded bg-blue-600 text-white text-xl py-1 mt-3">
           确 定
         </a>
       </Link>

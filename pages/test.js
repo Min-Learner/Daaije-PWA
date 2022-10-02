@@ -23,6 +23,8 @@ export default function Test() {
     const input = e.target.value;
     if (!Number.isInteger(input) && input > 0) {
       setTimes(input);
+    } else {
+      setTimes(10000);
     }
   };
 
@@ -33,6 +35,7 @@ export default function Test() {
         <input
           className="my-2 pl-2 text-xl border outline-none rounded w-full text-center"
           type="number"
+          value={times}
           onChange={(e) => handleInput(e)}
         />
         <button

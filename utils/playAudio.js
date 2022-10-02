@@ -1,3 +1,5 @@
+import { Howl } from "howler";
+
 export default function playAudio(file) {
   const url = `${
     process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -5,6 +7,9 @@ export default function playAudio(file) {
     /%/g,
     "z"
   )}`;
-  const audio = new Audio(url);
+  const audio = new Howl({
+    src: [url],
+    html5: true,
+  });
   audio.play();
 }

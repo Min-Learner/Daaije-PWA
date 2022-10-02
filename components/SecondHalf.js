@@ -1,6 +1,6 @@
-import { useRouter } from "next/router";
 import { useState, useEffect } from "react/";
 import { useAppContext } from "../utils/appContext";
+import Link from "next/link";
 import useDownload from "../utils/useDownload";
 import playAudio from "../utils/playAudio";
 
@@ -8,7 +8,6 @@ let timer;
 
 export default function SecondHalf() {
   const [coolTime, setCoolTime] = useState(false);
-  const router = useRouter();
   const list = useDownload();
   const {
     basicState: { animation, round, currentPlayer },
@@ -50,12 +49,9 @@ export default function SecondHalf() {
         <img src="yyds.jpg" alt="" className="w-28 rounded-md" />
       </div>
       <div className="flex justify-around w-full mt-5">
-        <button
-          onClick={() => router.push("/")}
-          className="btn w-20 bg-orange-400"
-        >
-          设定
-        </button>
+        <Link href="/">
+          <a className="btn w-20 bg-orange-400">设定</a>
+        </Link>
         <button
           onClick={() => basicDispatch({ type: "reroll" })}
           className="btn w-20 bg-red-600"
@@ -63,18 +59,12 @@ export default function SecondHalf() {
         >
           重摇
         </button>
-        <button
-          onClick={() => router.push("/dice")}
-          className="btn w-20 bg-green-700"
-        >
-          次数记录
-        </button>
-        <button
-          onClick={() => router.push("/player")}
-          className="btn w-20 bg-sky-600"
-        >
-          玩家记录
-        </button>
+        <Link href="/dice">
+          <a className="btn w-20 bg-green-600">次数记录</a>
+        </Link>
+        <Link href="/player">
+          <a className="btn w-20 bg-sky-500">玩家记录</a>
+        </Link>
       </div>
     </>
   );

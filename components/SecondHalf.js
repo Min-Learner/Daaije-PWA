@@ -10,28 +10,53 @@ export default function SecondHalf() {
   const [coolTime, setCoolTime] = useState(false);
   const list = useDownload();
   const {
-    basicState: { animation, round, currentPlayer },
+    basicState: { startIndex, playerList, round, currentPlayer },
     basicDispatch,
   } = useAppContext();
 
-  useEffect(() => {
-    list &&
-      animation &&
-      playAudio(list[Math.floor(Math.random() * list.length)]);
-  }, [animation]);
-
   //根据React官方文档，cleanup function不仅在unmount的时候发动，而且也会在useEffect发动的时候发动，除了第一次发动。所以setTimeOut的cleanup要放在一个空数组的useEffect里面，这样该useEffect只会发动一次，cleanup也只在unmount的时候发动；如果放在上面的useEffect中，在第2次useEffect发动的时候，cleanup也会发动，从而导致setTimeOut用不了
   useEffect(() => {
+    !round &&
+      currentPlayer &&
+      informCurrentPlayer(`开始玩家${nameHandler(currentPlayer)}`);
+
     return () => clearTimeout(timer);
   }, []);
 
-  const handleClick = () => {
+  const informCurrentPlayer = (text) => {
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.pitch = 1;
+    speech.volume = 1;
+    speech.lang = "zh-HK";
+    speech.rate = 1.5;
+    speechSynthesis.speak(speech);
+  };
+
+  const nameHandler = (text) => {
+    const names = "高佬 老宇 老敏 霞嫂 老炜".split(" ");
+    for (let name of names) {
+      if (name.includes(text)) return name;
+    }
+    return "大爷";
+  };
+
+  const handleRoll = (isReroll) => {
     if (!coolTime) {
-      basicDispatch({ type: "roll" });
+      const file = list && list[Math.floor(Math.random() * list.length)];
+      const text =
+        nameHandler(playerList[(round + startIndex) % playerList.length]) +
+        "回合";
+      if (isReroll) {
+        basicDispatch({ type: "reroll" });
+        file && playAudio(file);
+      } else {
+        basicDispatch({ type: "roll" });
+        file && playAudio(file, informCurrentPlayer, text);
+      }
       setCoolTime(true);
       timer = setTimeout(() => {
         setCoolTime(false);
-      }, 2000);
+      }, 1500);
     }
   };
 
@@ -43,8 +68,8 @@ export default function SecondHalf() {
       </p>
       <i>老点大爷帅气头像摇骰子</i>
       <div
-        onClick={handleClick}
-        className={animation ? "animate__animated animate__rubberBand" : ""}
+        onClick={() => handleRoll(false)}
+        className={coolTime ? "animate__animated animate__rubberBand" : ""}
       >
         <img src="yyds.jpg" alt="" className="w-28 rounded-md" />
       </div>
@@ -53,7 +78,7 @@ export default function SecondHalf() {
           <a className="btn w-20 bg-orange-400">设定</a>
         </Link>
         <button
-          onClick={() => basicDispatch({ type: "reroll" })}
+          onClick={() => handleRoll(true)}
           className="btn w-20 bg-red-600"
           disabled={!round}
         >

@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="zh-HK">
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
         <link
           href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=ZCOOL+XiaoWei&display=swap"
           rel="stylesheet"

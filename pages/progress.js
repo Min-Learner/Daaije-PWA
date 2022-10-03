@@ -15,7 +15,7 @@ export default function Progress() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen text-white bg-[#f45b69] py-5 px-2.5">
+    <div className="wrapper px-2.5">
       <div className="flex w-full">
         <div className="flex-1 text-center py-2.5 px-1.5"></div>
         <div className="flex-1 text-center py-2.5 px-1.5 bg-[rgb(250,163,7)]">

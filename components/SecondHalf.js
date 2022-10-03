@@ -28,7 +28,7 @@ export default function SecondHalf() {
       speech.pitch = 1;
       speech.volume = 1;
       speech.lang = "zh-HK";
-      speech.rate = 1.5;
+      speech.rate = 1.2;
       speechSynthesis.speak(speech);
     } else {
       alert("你的浏览器不支持文字转语音功能！");
@@ -65,10 +65,7 @@ export default function SecondHalf() {
 
   return (
     <>
-      <p
-        className="flex items-center my-4 text-xl"
-        style={{ fontFamily: "ZCOOL XiaoWei, serif" }}
-      >
+      <p className="flex items-center my-4 text-xl xiaowei">
         {`第 ${round} 次，${round ? "当前玩家" : "开始玩家"}:`}
         <mark className="text-2xl font-bold px-2">{currentPlayer}</mark>
       </p>

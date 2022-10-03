@@ -10,7 +10,7 @@ export default function Dice() {
   diceData.forEach((d) => arr[d - 2]++);
 
   return (
-    <div className="table-wrapper">
+    <div className="wrapper">
       <div className="w-11/12 relative border-b-2 border-white/50">
         <span className="absolute left-[38px] inline-block w-0.5 h-full bg-white/50"></span>
         {arr.map((data, index) => {

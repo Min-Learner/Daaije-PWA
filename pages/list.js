@@ -68,7 +68,7 @@ export default function List() {
   };
 
   return (
-    <div className="table-wrapper text-white">
+    <div className="wrapper text-white">
       <div
         className={`fixed top-0 w-full bottom-0 z-50 max-w-sm flex ${
           uploading ? "" : "hidden"

@@ -29,7 +29,7 @@ export default function Test() {
   };
 
   return (
-    <div className="table-wrapper">
+    <div className="wrapper">
       <div className="w-11/12 flex items-center flex-col justify-center rounded p-3 bg-white">
         <p className="text-base">输入整数，默认10000</p>
         <input

@@ -70,7 +70,7 @@ export default function Home() {
             return (
               <p
                 key={player}
-                className="w-9 h-9 rounded-full bg-red-500 text-xl grid place-content-center text-white"
+                className="w-9 h-9 rounded-full bg-red-500 text-xl grid place-content-center text-white kuaile"
                 onClick={() => playerSelectHandler(player)}
               >
                 {player}
@@ -86,7 +86,7 @@ export default function Home() {
             return (
               <p
                 key={player}
-                className="w-9 h-9 rounded-full bg-red-500 text-xl grid place-content-center text-white"
+                className="w-9 h-9 rounded-full bg-red-500 text-xl grid place-content-center text-white kuaile"
               >
                 {player}
               </p>

@@ -2,12 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .kuaile {
+    font-family: ZCOOL KuaiLe;
+  }
+  .xiaowei {
+    font-family: ZCOOL XiaoWei;
+  }
+}
+
 @layer components {
   .btn {
-    @apply text-base py-2 rounded text-center text-white outline-none;
+    @apply py-2 rounded text-center text-white xiaowei;
   }
-  .table-wrapper {
-    @apply w-full py-5 min-h-screen flex flex-col justify-center items-center bg-[#f45b69];
+  .wrapper {
+    @apply py-5 min-h-screen flex flex-col justify-center items-center bg-[#f45b69];
   }
 }
 
@@ -16,7 +25,7 @@
     @apply select-none;
   }
   body {
-    @apply overscroll-contain font-sans;
+    @apply overscroll-contain;
   }
 }
 

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Image from "next/image";
-
 import Bird from "./icons/bird";
 
 export default function BasicHeader() {
@@ -12,12 +11,7 @@ export default function BasicHeader() {
         <Ad callback={setShowAd} />
       ) : (
         <div className="flex items-center" onClick={() => setShowAd(false)}>
-          <p
-            className="text-3xl mr-2"
-            style={{ fontFamily: "ZCOOL KuaiLe, sans-serif" }}
-          >
-            睇男科，找仲哥
-          </p>
+          <p className="text-3xl mr-2 kuaile">睇男科，找仲哥</p>
           <Image src={"/daye.png"} alt="daaije" width={35} height={35} />
         </div>
       )}

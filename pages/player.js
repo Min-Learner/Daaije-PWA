@@ -13,7 +13,7 @@ export default function Player() {
   }, []);
 
   return (
-    <div className="table-wrapper">
+    <div className="wrapper">
       <table className="w-11/12 text-center text-2xl text-white">
         <thead>
           <tr className="h-12 bg-violet-600">

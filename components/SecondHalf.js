@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react/";
 import { useAppContext } from "../utils/appContext";
 import Link from "next/link";
-import useDownload from "../utils/useDownload";
 import playAudio from "../utils/playAudio";
 
 let timer;
 
 export default function SecondHalf() {
   const [coolTime, setCoolTime] = useState(false);
-  const list = useDownload();
   const {
     basicState: { startIndex, playerList, round, currentPlayer },
     basicDispatch,
+    list,
   } = useAppContext();
 
   //根据React官方文档，cleanup function不仅在unmount的时候发动，而且也会在useEffect发动的时候发动，除了第一次发动。所以setTimeOut的cleanup要放在一个空数组的useEffect里面，这样该useEffect只会发动一次，cleanup也只在unmount的时候发动；如果放在上面的useEffect中，在第2次useEffect发动的时候，cleanup也会发动，从而导致setTimeOut用不了
@@ -24,12 +23,16 @@ export default function SecondHalf() {
   }, []);
 
   const informCurrentPlayer = (text) => {
-    const speech = new SpeechSynthesisUtterance(text);
-    speech.pitch = 1;
-    speech.volume = 1;
-    speech.lang = "zh-HK";
-    speech.rate = 1.5;
-    speechSynthesis.speak(speech);
+    if ("speechSynthesis" in window) {
+      const speech = new SpeechSynthesisUtterance(text);
+      speech.pitch = 1;
+      speech.volume = 1;
+      speech.lang = "zh-HK";
+      speech.rate = 1.5;
+      speechSynthesis.speak(speech);
+    } else {
+      alert("你的浏览器不支持文字转语音功能！");
+    }
   };
 
   const nameHandler = (text) => {
@@ -62,7 +65,10 @@ export default function SecondHalf() {
 
   return (
     <>
-      <p className="flex items-center my-4 text-xl">
+      <p
+        className="flex items-center my-4 text-xl"
+        style={{ fontFamily: "ZCOOL XiaoWei, serif" }}
+      >
         {`第 ${round} 次，${round ? "当前玩家" : "开始玩家"}:`}
         <mark className="text-2xl font-bold px-2">{currentPlayer}</mark>
       </p>

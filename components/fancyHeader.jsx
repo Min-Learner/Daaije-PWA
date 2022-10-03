@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Knife from "../public/knife";
+import Knife from "./icons/knife";
 
 let longInterval, mediumInterval, shortInterval;
 

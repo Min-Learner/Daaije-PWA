@@ -1,6 +1,6 @@
 import { useAppContext } from "../utils/appContext";
 import Image from "next/image";
-import Pirate from "../components/Pirate";
+import Pirate from "./icons/Pirate";
 import { useRouter } from "next/router";
 
 export default function KnightHeader() {

@@ -1,7 +1,7 @@
-import Politic from "../components/Politic";
-import Science from "../components/Science";
-import Skull from "../components/Skull";
-import Trade from "../components/Trade";
+import Politic from "./icons/Politic";
+import Science from "./icons/Science";
+import Skull from "./icons/Skull";
+import Trade from "./icons/Trade";
 import { useAppContext } from "../utils/appContext";
 
 export default function EventDice() {

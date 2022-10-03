@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { supabase } from "../utils/sbClient";
-import useDownload from "../utils/useDownload";
 import playAudio from "../utils/playAudio";
+import { useAppContext } from "../utils/appContext";
 
 export default function List() {
   const bottomRef = useRef(null);
@@ -11,7 +11,7 @@ export default function List() {
   const [numberOfFiles, setNumberOfFiles] = useState(0);
   const [isInit, setIsInit] = useState(true);
   const listRef = useRef(null);
-  const list = useDownload();
+  const { list } = useAppContext();
 
   useEffect(() => {
     if (!copy.length && list && isInit) {

@@ -5,10 +5,10 @@ export default function Total() {
     basicState: { dieOne, dieTwo },
   } = useAppContext();
 
-  let creatNumbers = () => {
+  const creatNumbers = () => {
     let array = [];
-    for (let i = 0; i < 11; i++) {
-      array.push(i + 2);
+    for (let i = 2; i < 13; i++) {
+      array.push(i);
     }
     return array;
   };
@@ -23,11 +23,11 @@ export default function Total() {
           className="flex transition-all"
           style={{ transform: `translateX(-${(dieOne + dieTwo) * 120}px)` }}
         >
-          {creatNumbers().map((n, i) => {
+          {creatNumbers().map((n) => {
             return (
               <span
                 className="text-[100px] text-center flex-none w-[120px] leading-[150px]"
-                key={i}
+                key={n}
               >
                 {n}
               </span>

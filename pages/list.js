@@ -111,16 +111,16 @@ export default function List() {
         {copy.map((item) => {
           return (
             <div
-              className="flex justify-between items-center h-11 px-2.5 odd:bg-white/30"
+              className="flex items-center h-11 px-2 odd:bg-white/30"
               key={item}
             >
               <span
-                className="flex-1 text-lg overflow-hidden whitespace-nowrap text-ellipsis"
+                className="flex-1 text-lg truncate"
                 onClick={() => playAudio(item)}
               >
                 {item.split(".")[0]}
               </span>
-              {/* <span className='text-xl text-black/60' onClick={() => handdleAction(item)}>✘</span> */}
+              {/* <span className="text-xl text-black/60">✘</span> */}
             </div>
           );
         })}

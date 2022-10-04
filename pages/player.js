@@ -16,7 +16,7 @@ export default function Player() {
     <div className="wrapper">
       <table className="w-11/12 text-center text-2xl text-white">
         <thead>
-          <tr className="h-12 bg-violet-600">
+          <tr className="h-12 bg-violet-600 font-serif">
             <th>次数</th>
             <th>玩家</th>
             <th>点数</th>

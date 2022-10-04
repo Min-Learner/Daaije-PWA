@@ -4,16 +4,16 @@
 
 @layer utilities {
   .kuaile {
-    font-family: ZCOOL KuaiLe;
+    font-family: "ZCOOL KuaiLe";
   }
   .xiaowei {
-    font-family: ZCOOL XiaoWei;
+    font-family: "ZCOOL XiaoWei";
   }
 }
 
 @layer components {
   .btn {
-    @apply py-2 rounded text-center text-white xiaowei;
+    @apply py-2 rounded text-center text-white text-lg xiaowei;
   }
   .wrapper {
     @apply py-5 min-h-screen flex flex-col justify-center items-center bg-[#f45b69];

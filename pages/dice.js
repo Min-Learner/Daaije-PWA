@@ -16,7 +16,7 @@ export default function Dice() {
         {arr.map((data, index) => {
           return (
             <div key={index} className="h-12 flex items-center">
-              <span className="text-[25px] text-white w-8 text-center mr-2">
+              <span className="text-[25px] text-white w-8 text-center mr-2 xiaowei">
                 {index + 2}
               </span>
               <span

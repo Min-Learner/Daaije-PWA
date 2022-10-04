@@ -15,7 +15,7 @@ export default function Progress() {
   }, []);
 
   return (
-    <div className="wrapper px-2.5">
+    <div className="wrapper px-2.5 text-white">
       <div className="flex w-full">
         <div className="flex-1 text-center py-2.5 px-1.5"></div>
         <div className="flex-1 text-center py-2.5 px-1.5 bg-[rgb(250,163,7)]">
@@ -82,7 +82,7 @@ export default function Progress() {
         })}
       </div>
       <Link href="/basic">
-        <a className="w-full text-center rounded bg-blue-600 text-white text-xl py-1 mt-3">
+        <a className="w-full text-center rounded bg-blue-600 text-xl py-1 mt-3">
           确 定
         </a>
       </Link>

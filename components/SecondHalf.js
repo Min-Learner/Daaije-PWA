@@ -11,6 +11,7 @@ export default function SecondHalf() {
     basicState: { startIndex, playerList, round, currentPlayer },
     basicDispatch,
     list,
+    isBasic,
   } = useAppContext();
 
   //根据React官方文档，cleanup function不仅在unmount的时候发动，而且也会在useEffect发动的时候发动，除了第一次发动。所以setTimeOut的cleanup要放在一个空数组的useEffect里面，这样该useEffect只会发动一次，cleanup也只在unmount的时候发动；如果放在上面的useEffect中，在第2次useEffect发动的时候，cleanup也会发动，从而导致setTimeOut用不了
@@ -30,8 +31,6 @@ export default function SecondHalf() {
       speech.lang = "zh-HK";
       speech.rate = 1.2;
       speechSynthesis.speak(speech);
-    } else {
-      alert("你的浏览器不支持文字转语音功能！");
     }
   };
 
@@ -76,7 +75,9 @@ export default function SecondHalf() {
       >
         <img src="yyds.jpg" alt="" className="w-28 rounded-md" />
       </div>
-      <div className="flex justify-around w-full mt-5">
+      <div
+        className={`flex justify-around w-full ${isBasic ? "my-5" : "mt-5"}`}
+      >
         <Link href="/">
           <a className="btn w-20 bg-orange-400">设定</a>
         </Link>
@@ -87,9 +88,11 @@ export default function SecondHalf() {
         >
           重摇
         </button>
-        <Link href="/dice">
-          <a className="btn w-20 bg-green-600">次数记录</a>
-        </Link>
+        {isBasic ? null : (
+          <Link href="/dice">
+            <a className="btn w-20 bg-green-600">次数记录</a>
+          </Link>
+        )}
         <Link href="/player">
           <a className="btn w-20 bg-sky-500">玩家记录</a>
         </Link>

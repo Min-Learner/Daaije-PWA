@@ -82,6 +82,7 @@ export default function SecondHalf() {
           <a className="btn w-20 bg-orange-400">设定</a>
         </Link>
         <button
+          type="button"
           onClick={() => handleRoll(true)}
           className="btn w-20 bg-red-600"
           disabled={!round}

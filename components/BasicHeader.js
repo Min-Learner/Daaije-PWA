@@ -13,16 +13,16 @@ export default function BasicHeader() {
 
   return (
     <>
-      <div className="flex justify-around w-full">
+      <div className="flex justify-around w-full text-xl">
         <div className="flex-1 bg-teal-500 text-white">
           {arr.map((d, i) => {
             return (
               <>
                 {i > 4 ? null : (
-                  <p className="text-xl flex justify-around py-1">
-                    <b className="xiaowei w-5 text-center">{i + 2}</b>
+                  <p className="flex justify-around py-1.5">
+                    <b className="xiaowei w-6 text-center">{i + 2}</b>
                     <span>:</span>
-                    <span>
+                    <span className="w-14 text-right">
                       {d}
                       <sub> 次</sub>
                     </span>
@@ -37,10 +37,10 @@ export default function BasicHeader() {
             return (
               <>
                 {i > 4 ? null : (
-                  <p className="text-xl flex justify-around py-1">
-                    <b className="xiaowei w-5 text-center">{12 - i}</b>
+                  <p className="flex justify-around py-1.5">
+                    <b className="xiaowei w-6 text-center">{12 - i}</b>
                     <span>:</span>
-                    <span>
+                    <span className="w-14 text-right">
                       {d}
                       <sub> 次</sub>
                     </span>
@@ -51,10 +51,10 @@ export default function BasicHeader() {
           })}
         </div>
       </div>
-      <p className="w-full bg-amber-500 text-white text-xl flex justify-around py-1">
-        <b className="xiaowei w-5 text-center">7</b>
+      <p className="w-full bg-amber-500 text-white text-xl flex justify-around py-1.5">
+        <b className="xiaowei w-6 text-center">7</b>
         <span>:</span>
-        <span>
+        <span className="w-14 text-right">
           {arr[5]}
           <sub> 次</sub>
         </span>

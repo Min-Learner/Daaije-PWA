@@ -17,6 +17,7 @@ export default function playAudio(file, isError, callback, arg) {
     src: [url],
     html5: true,
     onloaderror: function (id, error) {
+      if (isError) alert(file);
       callback && callback(arg);
     },
   });

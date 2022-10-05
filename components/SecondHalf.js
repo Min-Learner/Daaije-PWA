@@ -32,7 +32,7 @@ export default function SecondHalf() {
       speech.rate = 1.2;
       speechSynthesis.speak(speech);
     } else {
-      !text.includes("开始玩家") && playAudio(text, true);
+      !text.includes("开始玩家") && playAudio(text, true, alert, text);
     }
   };
 

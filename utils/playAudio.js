@@ -1,8 +1,8 @@
 import { Howl } from "howler";
 
-export default function playAudio(file, isPublic, callback, arg) {
+export default function playAudio(file, isError, callback, arg) {
   let url;
-  if (isPublic) {
+  if (isError) {
     url = `${file}.mp3`;
   } else {
     url = `${
@@ -22,6 +22,6 @@ export default function playAudio(file, isPublic, callback, arg) {
   });
   audio.play();
   audio.on("end", function () {
-    callback && callback(arg);
+    callback && !isError && callback(arg);
   });
 }

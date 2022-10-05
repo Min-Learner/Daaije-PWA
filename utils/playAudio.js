@@ -22,6 +22,6 @@ export default function playAudio(file, isError, callback, arg) {
   });
   audio.play();
   audio.on("end", function () {
-    callback && !isError && callback(arg);
+    callback && callback(arg);
   });
 }

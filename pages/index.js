@@ -65,16 +65,16 @@ export default function Home() {
         <p className="text-xl my-5 animate__animated animate__fadeInDown">
           按座位顺序选择玩家
         </p>
-        <div className="w-full animate__animated animate__delay-1s animate__fadeIn flex justify-around h-9">
+        <div className="w-full flex justify-around animate__animated animate__delay-1s animate__fadeIn h-9">
           {playerSlect.map((player) => {
             return (
-              <p
+              <span
                 key={player}
-                className="w-9 h-9 rounded-full bg-red-500 text-xl grid place-content-center text-white kuaile"
+                className="w-9 h-9 grid place-content-center rounded-full bg-red-500 text-xl text-white kuaile"
                 onClick={() => playerSelectHandler(player)}
               >
                 {player}
-              </p>
+              </span>
             );
           })}
         </div>
@@ -84,12 +84,12 @@ export default function Home() {
         <div className="w-full flex justify-around h-9">
           {playerList.map((player) => {
             return (
-              <p
+              <span
                 key={player}
-                className="w-9 h-9 rounded-full bg-red-500 text-xl grid place-content-center text-white kuaile"
+                className="w-9 h-9 grid place-content-center rounded-full bg-red-500 text-xl text-white kuaile"
               >
                 {player}
-              </p>
+              </span>
             );
           })}
         </div>

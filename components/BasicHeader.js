@@ -9,53 +9,46 @@ export default function BasicHeader() {
 
   const arr = Array(11).fill(0);
   diceData.forEach((d) => arr[d - 2]++);
-  const copy = [...arr].reverse();
+  const firstPart = arr.splice(0, 5);
+  const secondPart = arr.splice(1, 5).reverse();
 
   return (
     <>
       <div className="flex justify-around w-full text-xl">
         <div className="flex-1 bg-teal-500 text-white">
-          {arr.map((d, i) => {
+          {firstPart.map((d, i) => {
             return (
-              <>
-                {i > 4 ? null : (
-                  <p className="flex justify-around py-1.5">
-                    <b className="xiaowei w-6 text-center">{i + 2}</b>
-                    <span>:</span>
-                    <span className="w-14 text-right">
-                      {d}
-                      <sub> 次</sub>
-                    </span>
-                  </p>
-                )}
-              </>
+              <p className="flex py-1.5">
+                <b className="xiaowei text-center flex-1">{i + 2}</b>
+                <span className="flex-1 text-center">:</span>
+                <span className="flex-1 text-right">
+                  {d}
+                  <sub className="pr-4"> 次</sub>
+                </span>
+              </p>
             );
           })}
         </div>
         <div className="flex-1 bg-sky-500 text-white">
-          {copy.map((d, i) => {
+          {secondPart.map((d, i) => {
             return (
-              <>
-                {i > 4 ? null : (
-                  <p className="flex justify-around py-1.5">
-                    <b className="xiaowei w-6 text-center">{12 - i}</b>
-                    <span>:</span>
-                    <span className="w-14 text-right">
-                      {d}
-                      <sub> 次</sub>
-                    </span>
-                  </p>
-                )}
-              </>
+              <p className="flex py-1.5">
+                <b className="xiaowei flex-1 text-center">{12 - i}</b>
+                <span className="flex-1 text-center">:</span>
+                <span className="flex-1 text-right">
+                  {d}
+                  <sub className="pr-4"> 次</sub>
+                </span>
+              </p>
             );
           })}
         </div>
       </div>
-      <p className="w-full bg-amber-500 text-white text-xl flex justify-around py-1.5">
-        <b className="xiaowei w-6 text-center">7</b>
-        <span>:</span>
-        <span className="w-14 text-right">
-          {arr[5]}
+      <p className="w-full bg-amber-500 text-white text-xl flex py-1.5">
+        <b className="xiaowei flex-1 text-center">7</b>
+        <span className="flex-1 text-center">:</span>
+        <span className="flex-1 text-center">
+          {arr[0]}
           <sub> 次</sub>
         </span>
       </p>
@@ -100,7 +93,7 @@ function Ad() {
           Professional achievements in male health
         </p>
         <p
-          className="text-right text-black pr-5"
+          className="text-right pr-4 text-black pr-5"
           style={{
             textShadow: "-1px 0 white, 0 1px white, 1px 0 white, 0 -1px white",
           }}

@@ -1,12 +1,18 @@
 import { Howl } from "howler";
 
-export default function playAudio(file, callback, arg) {
-  const url = `${
-    process.env.NEXT_PUBLIC_SUPABASE_URL
-  }/storage/v1/object/public/audios/${encodeURIComponent(file).replace(
-    /%/g,
-    "z"
-  )}`;
+export default function playAudio(file, isPublic, callback, arg) {
+  let url;
+  if (isPublic) {
+    url = `${file}.mp3`;
+  } else {
+    url = `${
+      process.env.NEXT_PUBLIC_SUPABASE_URL
+    }/storage/v1/object/public/audios/${encodeURIComponent(file).replace(
+      /%/g,
+      "z"
+    )}`;
+  }
+
   const audio = new Howl({
     src: [url],
     html5: true,

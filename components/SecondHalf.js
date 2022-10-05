@@ -31,6 +31,8 @@ export default function SecondHalf() {
       speech.lang = "zh-HK";
       speech.rate = 1.2;
       speechSynthesis.speak(speech);
+    } else {
+      !text.includes("开始玩家") && playAudio(text, true);
     }
   };
 
@@ -53,7 +55,7 @@ export default function SecondHalf() {
         file && playAudio(file);
       } else {
         basicDispatch({ type: "roll" });
-        file && playAudio(file, informCurrentPlayer, text);
+        file && playAudio(file, false, informCurrentPlayer, text);
       }
       setCoolTime(true);
       timer = setTimeout(() => {

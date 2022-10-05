@@ -18,7 +18,7 @@ export default function BasicHeader() {
         <div className="flex-1 bg-teal-500 text-white">
           {firstPart.map((d, i) => {
             return (
-              <p className="flex py-1.5">
+              <p className="flex py-1.5" key={i}>
                 <b className="xiaowei text-center flex-1">{i + 2}</b>
                 <span className="flex-1 text-center">:</span>
                 <span className="flex-1 text-right">
@@ -32,7 +32,7 @@ export default function BasicHeader() {
         <div className="flex-1 bg-sky-500 text-white">
           {secondPart.map((d, i) => {
             return (
-              <p className="flex py-1.5">
+              <p className="flex py-1.5" key={i}>
                 <b className="xiaowei flex-1 text-center">{12 - i}</b>
                 <span className="flex-1 text-center">:</span>
                 <span className="flex-1 text-right">

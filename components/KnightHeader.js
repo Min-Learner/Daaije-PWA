@@ -39,7 +39,7 @@ export default function KnightHeader() {
           <Image alt="daaije" src="/daye.png" width={35} height={35} />
         </span>
       </div>
-      <p className="h-7 mt-5 font-bold text-lg">{cardInfo}</p>
+      <p className="h-7 mt-5 font-bold text-lg font-serif">{cardInfo}</p>
     </>
   );
 }

@@ -4,7 +4,7 @@ import Bird from "./icons/bird";
 
 export default function BasicHeader() {
   const {
-    basicState: { diceData },
+    basicState: { diceData, round },
   } = useAppContext();
 
   const arr = Array(11).fill(0);
@@ -93,7 +93,7 @@ function Ad() {
           Professional achievements in male health
         </p>
         <p
-          className="text-right pr-4 text-black pr-5"
+          className="text-right pr-4 text-black"
           style={{
             textShadow: "-1px 0 white, 0 1px white, 1px 0 white, 0 -1px white",
           }}

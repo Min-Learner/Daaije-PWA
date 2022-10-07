@@ -107,7 +107,7 @@ export default function List() {
           </a>
         </Link>
       </div>
-      <div className="w-full px-2.5 pt-14 font-serif">
+      <div className="w-full px-2.5 pt-14" style={{ fontFamily: "cursive" }}>
         {copy.map((item) => {
           return (
             <div
